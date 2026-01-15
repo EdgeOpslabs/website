@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-brand-primary: #05CAFF;
+  --color-brand-accent: #05CCCD;
+  --color-brand-dark: #104BAF;
+  --color-brand-secondary: #104BAF;
+  --color-brand-text: var(--brand-text-dynamic);
+
+  /* Background Gradient */
+  --background-image-brand-glow: radial-gradient(circle at 50% 0%, #104BAF, #0a0a0a);
+
+  /* Fonts will be linked via CSS variables from layout.tsx */
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+/* Force Tailwind v4 to use class strategy manually if not auto-detected */
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --brand-text-dynamic: #0a0a0a;
+
+  /* Semantic Tokens (Light) */
+  --card-bg: #f8fafc;
+  --card-border: #cbd5e1;
+  /* Darker border */
+  --text-primary: #020617;
+  /* Slate 950 - Almost black */
+  --text-secondary: #334155;
+  /* Slate 700 */
+  --text-muted: #64748b;
+  /* Slate 500 */
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --brand-text-dynamic: #ffffff;
+
+  /* Semantic Tokens (Dark) */
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(5, 202, 255, 0.1);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.4);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  /* Default font */
+  font-family: var(--font-sans), sans-serif;
+
+  /* Apply gradient only in dark mode or make it subtle in light */
+  background-image: none;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.dark body {
+  /* Subtle background radial gradient only for dark mode */
+  background-image: radial-gradient(circle at 50% -20%, #104BAF 0%, #0a0a0a 60%);
+}
+
+/* Reusable Components */
+/* Reusable Components */
+.glass-card {
+  @apply border backdrop-blur-md shadow-lg;
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+  /* Fallback or specific override if needed */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-mono), monospace;
+  @apply text-brand-text tracking-tight;
+}
+
+/* Terminal Chic Utilities */
+@utility text-glow {
+  text-shadow: 0 0 8px currentColor;
+}
+
+@utility border-glow {
+  box-shadow: 0 0 5px var(--color-brand-primary), inset 0 0 5px var(--color-brand-primary);
+}
+
+@utility bg-scanline {
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0) 50%,
+      rgba(0, 0, 0, 0.2) 50%,
+      rgba(0, 0, 0, 0.2));
+  background-size: 100% 4px;
+}
