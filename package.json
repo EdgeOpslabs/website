@@ -1,9 +1,9 @@
 {
-  "name": "web",
+  "name": "edgeops-labs",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
-    "dev": "next dev -p 4321",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
