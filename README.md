@@ -9,7 +9,7 @@
 
 **Architecting the Operating System for the Intelligent Edge.**
 
-[Enter the Lab](http://localhost:4321) · [Read the Protocol](CONTRIBUTING.md) · [Access Repo](https://github.com/EdgeOpslabs)
+[Enter the Lab](https://www.edgeopslabs.com/) · [Read the Protocol](CONTRIBUTING.md) · [Access Repo](https://github.com/EdgeOpslabs)
 
 </div>
 
