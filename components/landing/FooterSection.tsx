@@ -22,16 +22,16 @@ export const FooterSection = () => {
                         </h4>
                         <ul className="space-y-3 text-sm text-brand-text/60">
                             <li>
-                                <a href="#" className="hover:text-brand-primary transition-colors">opsctl</a>
+                                <a href="/products" className="hover:text-brand-primary transition-colors">opsctl</a>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-brand-primary transition-colors">Nexus</a>
+                                <a href="/products" className="hover:text-brand-primary transition-colors">Nexus</a>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-brand-primary transition-colors">KubeSentient</a>
+                                <a href="/products" className="hover:text-brand-primary transition-colors">KubeSentient</a>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-brand-primary transition-colors">Roadmap</a>
+                                <a href="https://github.com/EdgeOpslabs" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors">Roadmap</a>
                             </li>
                         </ul>
                     </div>
@@ -64,19 +64,19 @@ export const FooterSection = () => {
                         </h4>
                         <ul className="space-y-3 text-sm text-brand-text/60">
                             <li>
-                                <a href="#" className="hover:text-brand-primary transition-colors">Privacy Policy</a>
+                                <a href="/about" className="hover:text-brand-primary transition-colors">Privacy Policy</a>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-brand-primary transition-colors">Terms of Service</a>
+                                <a href="/about" className="hover:text-brand-primary transition-colors">Terms of Service</a>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-brand-primary transition-colors">Code of Conduct</a>
+                                <a href="/community" className="hover:text-brand-primary transition-colors">Code of Conduct</a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <div className="mt-16 border-t border-white/5 pt-8 flex flex-col items-center justify-between gap-4 md:flex-row text-xs text-brand-text/40">
+                <div className="mt-16 border-t border-card-border pt-8 flex flex-col items-center justify-between gap-4 md:flex-row text-xs text-brand-text/40">
                     <p>© 2026 EdgeOps Labs. All rights reserved.</p>
                     <div className="flex gap-4">
                         <span>Designed for the Intelligent Edge.</span>

@@ -31,8 +31,9 @@ export const TerminalCopyBlock = ({
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.98 }}
             onClick={handleCopy}
+            aria-label="Copy install command"
             className={cn(
-                "group relative flex items-center gap-3 overflow-hidden rounded-lg",
+                "group relative flex w-full max-w-full items-center gap-3 overflow-hidden rounded-lg",
                 "bg-card border border-brand-primary/20",
                 "px-5 py-4 font-mono text-sm sm:text-base",
                 "transition-colors hover:border-brand-primary/50 hover:bg-brand-primary/5",
@@ -47,7 +48,7 @@ export const TerminalCopyBlock = ({
             </div>
 
             {/* Command Text */}
-            <span className="text-brand-text/90 min-w-[280px] text-left relative z-10 font-medium tracking-tight">
+            <span className="text-brand-text/90 min-w-0 flex-1 text-left relative z-10 font-medium tracking-tight break-all">
                 {command}
             </span>
 

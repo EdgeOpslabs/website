@@ -7,6 +7,10 @@
   --color-brand-dark: #104BAF;
   --color-brand-secondary: #104BAF;
   --color-brand-text: var(--brand-text-dynamic);
+  --color-card: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
 
   /* Background Gradient */
   --background-image-brand-glow: radial-gradient(circle at 50% 0%, #104BAF, #0a0a0a);
@@ -77,6 +81,12 @@ body {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
+.surface-panel {
+  background-color: color-mix(in oklab, var(--background) 88%, transparent);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(12px);
+}
+
 /* Headings */
 h1,
 h2,
@@ -104,4 +114,15 @@ h6 {
       rgba(0, 0, 0, 0.2) 50%,
       rgba(0, 0, 0, 0.2));
   background-size: 100% 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

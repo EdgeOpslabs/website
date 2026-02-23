@@ -22,7 +22,7 @@ export const HeroSection = () => {
                     transition={{ duration: 0.5 }}
                     className="inline-flex items-center rounded-full border border-brand-primary/20 bg-brand-primary/5 px-3 py-1 text-sm text-brand-primary"
                 >
-                    <span className="flex h-2 w-2 rounded-full bg-brand-primary mr-2 animate-pulse"></span>
+                    <span className="mr-2 flex h-2 w-2 rounded-full bg-brand-primary motion-safe:animate-pulse"></span>
                     v1.0.0 Public Preview
                 </motion.div>
 

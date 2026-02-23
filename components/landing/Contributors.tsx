@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { GitCommit, Star, Code, Users } from "lucide-react";
+import { Users } from "lucide-react";
 import Image from "next/image";
 
 interface Contributor {
@@ -11,6 +11,10 @@ interface Contributor {
     avatar_url: string;
     html_url: string;
     contributions: number;
+}
+
+interface Repository {
+    contributors_url: string;
 }
 
 export function Contributors() {
@@ -24,33 +28,35 @@ export function Contributors() {
                 const reposRes = await fetch('https://api.github.com/orgs/EdgeOpslabs/repos');
                 if (!reposRes.ok) throw new Error("Failed to fetch repos");
 
-                const repos = await reposRes.json();
+                const repos = (await reposRes.json()) as Repository[];
 
                 // Fetch contributors for each repository (limit to top 5 to respect rate limits)
-                const contributorsPromises = repos.slice(0, 5).map((repo: any) =>
-                    fetch(repo.contributors_url).then(res => res.ok ? res.json() : [])
+                const contributorsPromises = repos.slice(0, 5).map((repo) =>
+                    fetch(repo.contributors_url).then((res) =>
+                        res.ok ? (res.json() as Promise<Contributor[]>) : []
+                    )
                 );
 
                 const contributorsArrays = await Promise.all(contributorsPromises);
 
                 // Flatten and Deduplicate by ID
                 const allContributors = contributorsArrays.flat();
-                const uniqueContributorsMap = new Map();
+                const uniqueContributorsMap = new Map<number, Contributor>();
 
-                allContributors.forEach((c: any) => {
+                allContributors.forEach((c) => {
                     if (!uniqueContributorsMap.has(c.id) && !c.login.includes('[bot]')) {
                         uniqueContributorsMap.set(c.id, c);
                     } else if (uniqueContributorsMap.has(c.id)) {
                         // Aggregate contributions count if needed, though API returns per repo
                         const existing = uniqueContributorsMap.get(c.id);
-                        existing.contributions += c.contributions;
+                        if (existing) existing.contributions += c.contributions;
                     }
                 });
 
                 const uniqueContributors = Array.from(uniqueContributorsMap.values())
-                    .sort((a: any, b: any) => b.contributions - a.contributions);
+                    .sort((a, b) => b.contributions - a.contributions);
 
-                setContributors(uniqueContributors as Contributor[]);
+                setContributors(uniqueContributors);
             } catch (error) {
                 console.error("Failed to load contributors", error);
                 // Fallback to core architect if API fails

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Terminal, Cpu, Activity, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const products = [
@@ -77,17 +78,20 @@ export const ProductsSection = () => {
                                 </p>
                             </div>
 
-                            <div className="mt-8 flex items-center text-sm font-semibold text-brand-primary">
+                            <Link
+                                href="/products"
+                                className="mt-8 inline-flex items-center text-sm font-semibold text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/60 rounded"
+                            >
                                 Learn more <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                            </div>
+                            </Link>
                         </div>
                     </motion.div>
                 ))}
 
                 {/* Decorative Grid Filler if we want a true bento feel with empty spaces or stats */}
-                <div className="hidden lg:flex flex-col justify-center items-center p-8 rounded-2xl border border-dashed border-white/10 text-center">
-                    <span className="text-4xl font-mono font-bold text-white/20">3+</span>
-                    <span className="text-sm text-white/40 uppercase tracking-widest mt-2">Modules Active</span>
+                <div className="hidden lg:flex flex-col justify-center items-center p-8 rounded-2xl border border-dashed border-card-border text-center bg-card/40">
+                    <span className="text-4xl font-mono font-bold text-brand-text/40">3+</span>
+                    <span className="text-sm text-brand-text/50 uppercase tracking-widest mt-2">Modules Active</span>
                 </div>
 
             </div>

@@ -3,7 +3,8 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, Terminal } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -17,6 +18,7 @@ const NAV_LINKS = [
 export function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
     const [scrolled, setScrolled] = React.useState(false);
+    const pathname = usePathname();
 
     // Handle scroll effect
     React.useEffect(() => {
@@ -76,7 +78,12 @@ export function Navbar() {
                     {/* Desktop Navigation */}
                     <nav className="hidden md:flex items-center gap-1 relative z-10">
                         {NAV_LINKS.map((link) => (
-                            <NavLink key={link.label} href={link.href} label={link.label} />
+                            <NavLink
+                                key={link.label}
+                                href={link.href}
+                                label={link.label}
+                                isActive={pathname === link.href}
+                            />
                         ))}
                     </nav>
 
@@ -107,8 +114,14 @@ export function Navbar() {
                                     key={link.label}
                                     href={link.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="font-mono text-lg text-brand-text/80 hover:text-brand-primary hover:pl-4 transition-all duration-300 border-l-2 border-transparent hover:border-brand-primary px-2"
+                                    className={cn(
+                                        "font-mono text-lg text-brand-text/80 hover:text-brand-primary hover:pl-4 transition-all duration-300 border-l-2 px-2",
+                                        pathname === link.href
+                                            ? "border-brand-primary text-brand-primary"
+                                            : "border-transparent hover:border-brand-primary"
+                                    )}
                                     style={{ animationDelay: `${idx * 50}ms` }}
+                                    aria-current={pathname === link.href ? "page" : undefined}
                                 >
                                     {`> ${link.label}`}
                                 </Link>
@@ -121,18 +134,53 @@ export function Navbar() {
     );
 }
 
-function NavLink({ href, label }: { href: string; label: string }) {
+function NavLink({
+    href,
+    label,
+    isActive,
+}: {
+    href: string;
+    label: string;
+    isActive: boolean;
+}) {
     return (
         <Link
             href={href}
-            className="group relative px-4 py-2 font-mono text-sm font-medium text-brand-text/70 transition-colors hover:text-brand-primary"
+            aria-current={isActive ? "page" : undefined}
+            className={cn(
+                "group relative px-4 py-2 font-mono text-sm font-medium transition-colors",
+                isActive ? "text-brand-primary" : "text-brand-text/70 hover:text-brand-primary"
+            )}
         >
             <span className="relative z-10 flex items-center gap-1">
-                <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-brand-primary">[</span>
+                <span
+                    className={cn(
+                        "transition-all duration-300 text-brand-primary",
+                        isActive
+                            ? "opacity-100 translate-x-0"
+                            : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
+                    )}
+                >
+                    [
+                </span>
                 {label}
-                <span className="opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-brand-primary">]</span>
+                <span
+                    className={cn(
+                        "transition-all duration-300 text-brand-primary",
+                        isActive
+                            ? "opacity-100 translate-x-0"
+                            : "opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
+                    )}
+                >
+                    ]
+                </span>
             </span>
-            <span className="absolute inset-0 -z-10 bg-brand-primary/5 opacity-0 group-hover:opacity-100 rounded-md transition-opacity duration-300" />
+            <span
+                className={cn(
+                    "absolute inset-0 -z-10 rounded-md transition-opacity duration-300",
+                    isActive ? "bg-brand-primary/10 opacity-100" : "bg-brand-primary/5 opacity-0 group-hover:opacity-100"
+                )}
+            />
         </Link>
     );
 }

@@ -47,8 +47,8 @@ export function ThemeToggle({ className }: { className?: string }) {
                 "absolute inset-0 rounded-full pointer-events-none transition-opacity duration-500",
                 isDark ? "opacity-100" : "opacity-0"
             )}>
-                <div className="absolute left-2 top-2 w-[1px] h-[1px] bg-white rounded-full animate-pulse" />
-                <div className="absolute right-2 bottom-2 w-[1px] h-[1px] bg-white rounded-full animate-pulse delay-75" />
+                <div className="absolute left-2 top-2 h-[1px] w-[1px] rounded-full bg-white motion-safe:animate-pulse" />
+                <div className="absolute right-2 bottom-2 h-[1px] w-[1px] rounded-full bg-white motion-safe:animate-pulse delay-75" />
             </div>
         </button>
     );

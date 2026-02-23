@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 
 export const AboutCommunitySection = () => {
     return (
-        <section className="container mx-auto px-4 py-24 border-t border-white/5">
+        <section className="container mx-auto px-4 py-24 border-t border-card-border">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
 
                 {/* Left: The Mission */}
@@ -38,11 +39,11 @@ export const AboutCommunitySection = () => {
                         </div>
 
                         <div>
-                            <h3 className="text-2xl font-bold text-white mb-1">
-                                Join the Forge
+                            <h3 className="text-2xl font-bold text-brand-text mb-1">
+                                Join the Community
                             </h3>
-                            <p className="text-white/60 text-sm">
-                                Connect with 5,000+ DevOps engineers.
+                            <p className="text-brand-text/60 text-sm">
+                                Connect with builders shipping modern cloud and edge systems.
                             </p>
                         </div>
 
@@ -59,10 +60,13 @@ export const AboutCommunitySection = () => {
                         <div className="flex items-center -space-x-3 pt-2">
                             {[1, 2, 3, 4, 5].map((i) => (
                                 <div key={i} className="relative w-8 h-8 rounded-full border-2 border-[#1a1a2e] overflow-hidden ring-2 ring-transparent">
-                                    <img
+                                    <Image
                                         src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 40}&backgroundColor=b6e3f4`}
-                                        alt="Member"
-                                        className="w-full h-full object-cover"
+                                        alt="Community member"
+                                        fill
+                                        sizes="32px"
+                                        unoptimized
+                                        className="object-cover"
                                     />
                                 </div>
                             ))}

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Terminal, Cpu, Activity, Shield, Zap, Globe } from "lucide-react";
+import { Terminal, Cpu, Activity, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const products = [
@@ -58,7 +58,7 @@ export default function ProductsPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-primary/20 bg-brand-primary/5 px-3 py-1 text-xs font-mono text-brand-primary"
                     >
-                        <span className="h-2 w-2 animate-pulse rounded-full bg-brand-primary" />
+                        <span className="h-2 w-2 motion-safe:animate-pulse rounded-full bg-brand-primary" />
                         SYSTEM_STATUS: ONLINE
                     </motion.div>
 
@@ -78,7 +78,7 @@ export default function ProductsPage() {
                         className="max-w-2xl text-lg text-brand-text/60 md:text-xl font-mono"
                     >
                         Precision-engineered modules for the autonomous cloud. <br className="hidden md:block" />
-                        Deploy with <span className="text-brand-accent">lethal capabilities</span>.
+                        Deploy with <span className="text-brand-accent">production-ready capabilities</span>.
                     </motion.p>
                 </div>
 

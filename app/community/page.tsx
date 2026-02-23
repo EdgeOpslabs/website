@@ -1,16 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Users, MessageSquare, Github, Twitter, Radio, Globe } from "lucide-react";
-import Link from "next/link";
+import Image from "next/image";
+import { MessageSquare, Github, Twitter, Radio, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const channels = [
     {
         id: "discord",
-        title: "Discord Uplink",
-        description: "Secure channel for elite operatives. Real-time tactical support and meme warfare.",
-        action: "Establish Uplink",
+        title: "Discord Community",
+        description: "Real-time support, product discussions, release updates, and peer collaboration.",
+        action: "Join Discord",
         url: "https://discord.gg/edgeopslabs",
         icon: MessageSquare,
         color: "text-indigo-400",
@@ -19,9 +19,9 @@ const channels = [
     },
     {
         id: "github",
-        title: "Repository Access",
-        description: "Contribute to the source code. Fork the kernel, submit PRs, and audit the manifest.",
-        action: "Access Repo",
+        title: "GitHub Organization",
+        description: "Explore repositories, open issues, and contribute via pull requests.",
+        action: "Open GitHub",
         url: "https://github.com/EdgeOpslabs",
         icon: Github,
         color: "text-white",
@@ -30,9 +30,9 @@ const channels = [
     },
     {
         id: "twitter",
-        title: "Broadcast Frequency",
-        description: "Latest intel and status updates. Intercept the signal before the noise takes over.",
-        action: "Tune In",
+        title: "X Updates",
+        description: "Follow product announcements, technical highlights, and community updates.",
+        action: "Follow on X",
         url: "https://x.com/iemafzal",
         icon: Twitter,
         color: "text-sky-400",
@@ -59,7 +59,7 @@ export default function CommunityPage() {
                         animate={{ opacity: 1, scale: 1 }}
                         className="inline-flex items-center justify-center p-4 mb-6 rounded-full bg-brand-primary/10 text-brand-primary"
                     >
-                        <Globe size={48} className="animate-pulse" />
+                        <Globe size={48} className="motion-safe:animate-pulse" />
                     </motion.div>
 
                     <motion.h1
@@ -77,7 +77,7 @@ export default function CommunityPage() {
                         transition={{ delay: 0.2 }}
                         className="text-xl text-brand-text/60 font-mono"
                     >
-                        Connect to the Hivemind. Signal strength: <span className="text-brand-accent">100%</span>.
+                        Connect with the global EdgeOps community and stay current with every release.
                     </motion.p>
                 </div>
 
@@ -117,10 +117,13 @@ export default function CommunityPage() {
                                 <div className="flex items-center justify-center -space-x-3 mb-6">
                                     {[1, 2, 3, 4, 5].map((i) => (
                                         <div key={i} className="relative w-8 h-8 rounded-full border-2 border-card overflow-hidden ring-2 ring-background">
-                                            <img
+                                            <Image
                                                 src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 40}&backgroundColor=b6e3f4`}
-                                                alt="Member"
-                                                className="w-full h-full object-cover"
+                                                alt="Community member"
+                                                fill
+                                                sizes="32px"
+                                                unoptimized
+                                                className="object-cover"
                                             />
                                         </div>
                                     ))}
@@ -162,7 +165,7 @@ export default function CommunityPage() {
                         </div>
                     </div>
                     <p className="mt-8 text-xs font-mono text-brand-text/30">
-                        * DATA SYNCED FROM MAINNET
+                        * LIVE COMMUNITY SNAPSHOT
                     </p>
                 </motion.div>
             </div>

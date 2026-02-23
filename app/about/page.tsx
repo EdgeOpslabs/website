@@ -9,25 +9,25 @@ const timeline = [
     {
         year: "2023",
         title: "Initial Commit",
-        description: "The core kernel was initialized. First lines of code written in a basement server room.",
+        description: "The core platform was initialized and the first automation workflows were shipped.",
         icon: GitCommit,
     },
     {
         year: "2024",
         title: "Feature Branch: Intelligence",
-        description: "Integrated Large Language Models into the ops pipeline. The first autonomous agent went online.",
+        description: "Integrated LLM-powered operations workflows. The first autonomous agent went online.",
         icon: GitBranch,
     },
     {
         year: "2025",
         title: "Merge to Main",
-        description: "Public beta release. The platform stabilized and began self-replicating across multi-cloud clusters.",
+        description: "Public beta launched with production-grade stability across multi-cloud environments.",
         icon: GitMerge,
     },
     {
         year: "2026",
         title: "v1.0.0 Release",
-        description: "EdgeOps Labs goes public. The new standard for intelligent edge orchestration is defined.",
+        description: "EdgeOps Labs launched v1.0 with a focused stack for intelligent edge orchestration.",
         icon: Terminal,
     },
 ];
@@ -37,7 +37,7 @@ const team = [
         name: "Afzal Hassan",
         role: "DevOps Engineer",
         handle: "@iemafzalhassan",
-        bio: "Building systems that build themselves. Obsessed with idempotency and neon lights.",
+        bio: "Building reliable platform automation with a focus on repeatability, observability, and developer velocity.",
         avatar: "https://github.com/iemafzalhassan.png", // Using GitHub avatar as placeholder
     },
     // Add more team members here
@@ -67,8 +67,8 @@ export default function AboutPage() {
                         transition={{ delay: 0.1 }}
                         className="text-5xl md:text-7xl font-bold mb-8 text-brand-text"
                     >
-                        Architecting the <br />
-                        <span className="text-glow text-brand-primary">Singularity</span>.
+                        Building the <br />
+                        <span className="text-glow text-brand-primary">Autonomous Cloud</span>.
                     </motion.h1>
 
                     <motion.p
@@ -138,11 +138,12 @@ export default function AboutPage() {
                                 className="group relative overflow-hidden rounded-xl bg-card border border-brand-primary/10 p-6 flex items-start gap-4 hover:border-brand-primary/30 transition-all"
                             >
                                 <div className="relative h-16 w-16 shrink-0 rounded-lg overflow-hidden border border-brand-primary/20 group-hover:border-brand-primary/50 transition-colors">
-                                    {/* Placeholder Avatar */}
-                                    <img
+                                    <Image
                                         src={member.avatar}
                                         alt={member.name}
-                                        className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all"
+                                        fill
+                                        sizes="64px"
+                                        className="object-cover grayscale group-hover:grayscale-0 transition-all"
                                     />
                                 </div>
 
