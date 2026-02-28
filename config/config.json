@@ -1,0 +1,60 @@
+{
+    "community": {
+        "creators": [
+            {
+                "id": 1,
+                "name": "Elena Tech",
+                "role": "Architecture Lead",
+                "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Elena&backgroundColor=b6e3f4",
+                "linkedin": "https://linkedin.com",
+                "discord": "https://discord.com",
+                "portfolio": "https://example.com/elena"
+            },
+            {
+                "id": 2,
+                "name": "Marcus Void",
+                "role": "Protocol Visionary",
+                "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus&backgroundColor=b6e3f4",
+                "linkedin": "https://linkedin.com",
+                "discord": "https://discord.com",
+                "portfolio": "https://example.com/marcus",
+                "isCenter": true
+            },
+            {
+                "id": 3,
+                "name": "Sarah Nodes",
+                "role": "DevRel Engineer",
+                "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah&backgroundColor=b6e3f4",
+                "linkedin": "https://linkedin.com",
+                "discord": "https://discord.com",
+                "portfolio": "https://example.com/sarah"
+            }
+        ],
+        "activeNodes": [
+            {
+                "id": 1,
+                "name": "Alex Dev",
+                "role": "Core Contributor",
+                "avatar": "https://lh3.googleusercontent.com/d/1xZgRddA0nIUrWEDwvOTEezxF8JWNKwgj",
+                "linkedin": "https://linkedin.com",
+                "discord": "https://discord.com"
+            },
+            {
+                "id": 2,
+                "name": "Sam Systems",
+                "role": "Community Manager",
+                "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sam&backgroundColor=b6e3f4",
+                "linkedin": "https://linkedin.com",
+                "discord": "https://discord.com"
+            },
+            {
+                "id": 3,
+                "name": "Jordan Ops",
+                "role": "Evangelist",
+                "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Jordan&backgroundColor=b6e3f4",
+                "linkedin": "https://linkedin.com",
+                "discord": "https://discord.com"
+            }
+        ]
+    }
+}

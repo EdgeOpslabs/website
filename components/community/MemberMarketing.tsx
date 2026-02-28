@@ -5,32 +5,9 @@ import Image from "next/image";
 import { Users, Linkedin } from "lucide-react";
 import { DiscordIcon } from "@/components/icons";
 
-const MEMBERS = [
-    {
-        id: 1,
-        name: "Alex Dev",
-        role: "Core Contributor",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex&backgroundColor=b6e3f4",
-        linkedin: "https://linkedin.com",
-        discord: "https://discord.com"
-    },
-    {
-        id: 2,
-        name: "Sam Systems",
-        role: "Community Manager",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sam&backgroundColor=b6e3f4",
-        linkedin: "https://linkedin.com",
-        discord: "https://discord.com"
-    },
-    {
-        id: 3,
-        name: "Jordan Ops",
-        role: "Evangelist",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jordan&backgroundColor=b6e3f4",
-        linkedin: "https://linkedin.com",
-        discord: "https://discord.com"
-    }
-];
+import { siteConfig } from "@/lib/config-schema";
+
+const MEMBERS = siteConfig.community.activeNodes;
 
 export function MemberMarketing() {
     return (
@@ -68,13 +45,10 @@ export function MemberMarketing() {
                         {/* Inner Card content, absolute inset with padding to act as 'border' radius clip */}
                         <div className="relative z-10 p-6 m-[1px] md:m-[2px] rounded-[11px] bg-gradient-to-br from-card to-background hover:bg-black/80 transition-all flex flex-col items-center text-center h-[calc(100%-2px)] md:h-[calc(100%-4px)]">
                             <div className="relative w-28 h-28 rounded-full border-4 border-transparent group-hover:border-brand-primary/50 transition-colors overflow-hidden mb-5">
-                                <Image
+                                <img
                                     src={member.avatar}
                                     alt={member.name}
-                                    fill
-                                    sizes="112px"
-                                    unoptimized
-                                    className="object-cover"
+                                    className="w-full h-full object-cover"
                                 />
                             </div>
                             <h3 className="font-bold text-xl text-brand-text group-hover:text-brand-primary transition-colors truncate w-full">

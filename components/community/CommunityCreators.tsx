@@ -6,36 +6,9 @@ import { Star, Linkedin, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { DiscordIcon } from "@/components/icons";
 
-const CREATORS = [
-    {
-        id: 1,
-        name: "Elena Tech",
-        role: "Architecture Lead",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Elena&backgroundColor=b6e3f4",
-        linkedin: "https://linkedin.com",
-        discord: "https://discord.com",
-        portfolio: "https://example.com/elena"
-    },
-    {
-        id: 2,
-        name: "Marcus Void",
-        role: "Protocol Visionary",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus&backgroundColor=b6e3f4",
-        linkedin: "https://linkedin.com",
-        discord: "https://discord.com",
-        portfolio: "https://example.com/marcus",
-        isCenter: true // Used for elevating the middle card
-    },
-    {
-        id: 3,
-        name: "Sarah Nodes",
-        role: "DevRel Engineer",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah&backgroundColor=b6e3f4",
-        linkedin: "https://linkedin.com",
-        discord: "https://discord.com",
-        portfolio: "https://example.com/sarah"
-    }
-];
+import { siteConfig } from "@/lib/config-schema";
+
+const CREATORS = siteConfig.community.creators;
 
 export function CommunityCreators() {
     return (
@@ -80,13 +53,10 @@ export function CommunityCreators() {
 
                             <div className={`relative rounded-full border-4 overflow-hidden mb-6 transition-colors ${creator.isCenter ? 'w-32 h-32 border-amber-500/50 group-hover:border-amber-400' : 'w-24 h-24 border-white/10 group-hover:border-brand-primary/50'
                                 }`}>
-                                <Image
+                                <img
                                     src={creator.avatar}
                                     alt={creator.name}
-                                    fill
-                                    sizes="128px"
-                                    unoptimized
-                                    className="object-cover"
+                                    className="w-full h-full object-cover"
                                 />
                             </div>
 
