@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const CALENDAR_URL = "https://calendar.google.com/calendar/ical/6e5dabfdd8707cb74a4dca7c6afc01a7a43520a2dbb5044ec1af72f70bee3bf3%40group.calendar.google.com/public/basic.ics";
+const CALENDAR_URL = "https://calendar.google.com/calendar/ical/8107b2b7fd5058278af8e2d4bb7f146b8c2eae4a759488be400949d8ddc946cc%40group.calendar.google.com/public/basic.ics";
 
 export async function GET() {
     try {
