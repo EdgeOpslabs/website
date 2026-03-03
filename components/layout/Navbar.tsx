@@ -11,6 +11,7 @@ import { ThemeToggle } from "./ThemeToggle";
 const NAV_LINKS = [
     { href: "/", label: "HOME" },
     { href: "/products", label: "PRODUCTS" },
+    { href: "https://blogs.edgeopslabs.com", label: "BLOG", external: true },
     { href: "/community", label: "COMMUNITY" },
     { href: "/about", label: "ABOUT" },
 ];
@@ -82,7 +83,8 @@ export function Navbar() {
                                 key={link.label}
                                 href={link.href}
                                 label={link.label}
-                                isActive={pathname === link.href}
+                                isActive={!link.external && pathname === link.href}
+                                external={Boolean(link.external)}
                             />
                         ))}
                     </nav>
@@ -116,12 +118,14 @@ export function Navbar() {
                                     onClick={() => setIsMobileMenuOpen(false)}
                                     className={cn(
                                         "font-mono text-lg text-brand-text/80 hover:text-brand-primary hover:pl-4 transition-all duration-300 border-l-2 px-2",
-                                        pathname === link.href
+                                        !link.external && pathname === link.href
                                             ? "border-brand-primary text-brand-primary"
                                             : "border-transparent hover:border-brand-primary"
                                     )}
                                     style={{ animationDelay: `${idx * 50}ms` }}
-                                    aria-current={pathname === link.href ? "page" : undefined}
+                                    aria-current={!link.external && pathname === link.href ? "page" : undefined}
+                                    target={link.external ? "_blank" : undefined}
+                                    rel={link.external ? "noopener noreferrer" : undefined}
                                 >
                                     {`> ${link.label}`}
                                 </Link>
@@ -138,15 +142,19 @@ function NavLink({
     href,
     label,
     isActive,
+    external,
 }: {
     href: string;
     label: string;
     isActive: boolean;
+    external?: boolean;
 }) {
     return (
         <Link
             href={href}
             aria-current={isActive ? "page" : undefined}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener noreferrer" : undefined}
             className={cn(
                 "group relative px-4 py-2 font-mono text-sm font-medium transition-colors",
                 isActive ? "text-brand-primary" : "text-brand-text/70 hover:text-brand-primary"

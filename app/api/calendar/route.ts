@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 
-const CALENDAR_URL = "https://calendar.google.com/calendar/ical/8107b2b7fd5058278af8e2d4bb7f146b8c2eae4a759488be400949d8ddc946cc%40group.calendar.google.com/public/basic.ics";
+const CALENDAR_URL = process.env.GOOGLE_CALENDAR_URL || "https://calendar.google.com/calendar/ical/8107b2b7fd5058278af8e2d4bb7f146b8c2eae4a759488be400949d8ddc946cc%40group.calendar.google.com/public/basic.ics";
 
 export async function GET() {
     try {
         const response = await fetch(CALENDAR_URL, {
-            next: { revalidate: 60 }
+            cache: 'no-store'
         });
 
         if (!response.ok) {

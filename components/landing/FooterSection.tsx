@@ -1,3 +1,33 @@
+function FooterLink({
+    href,
+    label,
+    external = false,
+}: {
+    href: string;
+    label: string;
+    external?: boolean;
+}) {
+    return (
+        <a
+            href={href}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener noreferrer" : undefined}
+            className="group relative inline-flex items-center px-2 py-1 no-underline transition-colors text-brand-text/70 hover:text-brand-primary"
+        >
+            <span className="relative z-10 flex items-center gap-1 font-mono text-sm">
+                <span className="text-brand-primary transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0">
+                    [
+                </span>
+                {label}
+                <span className="text-brand-primary transition-all duration-300 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0">
+                    ]
+                </span>
+            </span>
+            <span className="absolute inset-0 -z-10 rounded-md bg-brand-primary/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        </a>
+    );
+}
+
 export const FooterSection = () => {
     return (
         <footer className="border-t border-card-border bg-card pt-16 pb-8">
@@ -6,7 +36,7 @@ export const FooterSection = () => {
 
                     {/* Brand Column */}
                     <div className="space-y-4">
-                        <h3 className="text-xl font-bold font-mono tracking-tight text-brand-text flex items-center gap-2">
+                        <h3 className="text-xl font-bold font-mono tracking-tight text-brand-text flex items-center gap-2 transition-all duration-300 hover:text-glow">
                             <span className="text-brand-primary">edgeops</span>.labs
                         </h3>
                         <p className="text-sm text-brand-text/60 leading-relaxed">
@@ -22,16 +52,16 @@ export const FooterSection = () => {
                         </h4>
                         <ul className="space-y-3 text-sm text-brand-text/60">
                             <li>
-                                <a href="/products" className="hover:text-brand-primary transition-colors">opsctl</a>
+                                <FooterLink href="/products" label="opsctl" />
                             </li>
                             <li>
-                                <a href="/products" className="hover:text-brand-primary transition-colors">Nexus</a>
+                                <FooterLink href="/products" label="Nexus" />
                             </li>
                             <li>
-                                <a href="/products" className="hover:text-brand-primary transition-colors">KubeSentient</a>
+                                <FooterLink href="/products" label="KubeSentient" />
                             </li>
                             <li>
-                                <a href="https://github.com/EdgeOpslabs" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors">Roadmap</a>
+                                <FooterLink href="https://github.com/EdgeOpslabs" label="Roadmap" external />
                             </li>
                         </ul>
                     </div>
@@ -43,16 +73,16 @@ export const FooterSection = () => {
                         </h4>
                         <ul className="space-y-3 text-sm text-brand-text/60">
                             <li>
-                                <a href="https://github.com/EdgeOpslabs" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors">GitHub</a>
+                                <FooterLink href="https://github.com/EdgeOpslabs" label="GitHub" external />
                             </li>
                             <li>
-                                <a href="https://discord.gg/edgeopslabs" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors">Discord</a>
+                                <FooterLink href="https://discord.gg/edgeopslabs" label="Discord" external />
                             </li>
                             <li>
-                                <a href="https://youtube.com/@iemafzalhassan" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors">YouTube</a>
+                                <FooterLink href="https://youtube.com/@iemafzalhassan" label="YouTube" external />
                             </li>
                             <li>
-                                <a href="https://x.com/iemafzal" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors">Twitter / X</a>
+                                <FooterLink href="https://x.com/iemafzalhassan" label="Twitter / X" external />
                             </li>
                         </ul>
                     </div>
@@ -64,13 +94,13 @@ export const FooterSection = () => {
                         </h4>
                         <ul className="space-y-3 text-sm text-brand-text/60">
                             <li>
-                                <a href="/about" className="hover:text-brand-primary transition-colors">Privacy Policy</a>
+                                <FooterLink href="/about" label="Privacy Policy" />
                             </li>
                             <li>
-                                <a href="/about" className="hover:text-brand-primary transition-colors">Terms of Service</a>
+                                <FooterLink href="/about" label="Terms of Service" />
                             </li>
                             <li>
-                                <a href="/community" className="hover:text-brand-primary transition-colors">Code of Conduct</a>
+                                <FooterLink href="/community" label="Code of Conduct" />
                             </li>
                         </ul>
                     </div>
