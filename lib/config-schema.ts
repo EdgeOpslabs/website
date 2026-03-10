@@ -6,7 +6,7 @@ export const CreatorSchema = z.object({
     id: z.number(),
     name: z.string(),
     role: z.string(),
-    avatar: z.string().url(),
+    avatar: z.string(),
     linkedin: z.string().url().optional(),
     discord: z.string().url().optional(),
     portfolio: z.string().url().optional(),
@@ -18,7 +18,7 @@ export const ActiveNodeSchema = z.object({
     id: z.number(),
     name: z.string(),
     role: z.string(),
-    avatar: z.string().url(),
+    avatar: z.string(),
     linkedin: z.string().url().optional(),
     discord: z.string().url().optional(),
 });

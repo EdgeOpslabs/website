@@ -127,3 +127,23 @@ h6 {
     scroll-behavior: auto !important;
   }
 }
+
+@keyframes orbit1 {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg) translateX(125px) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg) translateX(125px) rotate(-360deg);
+  }
+}
+
+@keyframes orbit2 {
+  from {
+    transform: translate(-50%, -50%) rotate(360deg) translateX(175px) rotate(-360deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(0deg) translateX(175px) rotate(0deg);
+  }
+}

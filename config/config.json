@@ -17,17 +17,25 @@
                 "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus&backgroundColor=b6e3f4",
                 "linkedin": "https://linkedin.com",
                 "discord": "https://discord.com",
-                "portfolio": "https://example.com/marcus",
-                "isCenter": true
+                "portfolio": "https://example.com/marcus"
             },
             {
                 "id": 3,
-                "name": "Sarah Nodes",
-                "role": "DevRel Engineer",
-                "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah&backgroundColor=b6e3f4",
-                "linkedin": "https://linkedin.com",
+                "name": "Saime Shaikh",
+                "role": "Backend Handler",
+                "avatar": "/api/avatar?url=https://lh3.googleusercontent.com/d/1mmVdGX1u319Gm4WaOnR8QCs5k23BBT8H",
+                "linkedin": "https://www.linkedin.com/in/saim-shaikh-devops/",
+                "discord": "https://discord.com/users/643874595727867924",
+                "portfolio": "https://www.saimeshaikh.in/"
+            },
+            {
+                "id": 4,
+                "name": "Fauzeya Naheed",
+                "role": "Research & Content Creator ",
+                "avatar": "/api/avatar?url=https://lh3.googleusercontent.com/d/1krXA716xCrpZ2xJJdXjjq4k3N5stGDOH",
+                "linkedin": "https://www.linkedin.com/in/fauzeya-naheed/",
                 "discord": "https://discord.com",
-                "portfolio": "https://example.com/sarah"
+                "portfolio": "https://www.fauzeya.in/"
             }
         ],
         "activeNodes": [
@@ -35,13 +43,13 @@
                 "id": 1,
                 "name": "Saime Shaikh",
                 "role": "Core Contributor",
-                "avatar": "https://lh3.googleusercontent.com/d/1xZgRddA0nIUrWEDwvOTEezxF8JWNKwgj",
+                "avatar": "/api/avatar?url=https://lh3.googleusercontent.com/d/1xZgRddA0nIUrWEDwvOTEezxF8JWNKwgj",
                 "linkedin": "https://linkedin.com",
                 "discord": "https://discord.com"
             },
             {
                 "id": 2,
-                "name": "Sam Systems",
+                "name": "Sam Syste",
                 "role": "Community Manager",
                 "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sam&backgroundColor=b6e3f4",
                 "linkedin": "https://linkedin.com",

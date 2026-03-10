@@ -23,59 +23,83 @@ export const AboutCommunitySection = () => {
                     </p>
                 </div>
 
-                {/* Right: Join the Forge */}
-                <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    className="glass-card rounded-2xl p-8 lg:p-12 relative overflow-hidden group border-brand-accent/20"
-                >
-                    <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:opacity-20 transition-opacity bg-brand-accent blur-[60px] rounded-full h-32 w-32 translate-x-10 -translate-y-10" />
-
-                    <div className="relative z-10 flex flex-col items-start gap-6">
-                        <div className="h-16 w-16 bg-[#5865F2] rounded-2xl flex items-center justify-center shadow-lg shadow-[#5865F2]/30">
-                            {/* Discord Icon SVG */}
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1892.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.1023.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z" />
-                            </svg>
+                {/* Right: Circular Tech Icons */}
+                <div className="relative flex-1 lg:h-[600px] h-[400px] flex items-center justify-center overflow-visible">
+                    <div className="relative w-full h-full flex items-center justify-center scale-[0.65] sm:scale-75 md:scale-90 lg:scale-100">
+                        {/* Center Logo/Icon */}
+                        <div className="absolute z-10 h-24 w-24 rounded-full bg-brand-dark border border-brand-accent/30 shadow-[0_0_30px_rgba(5,202,255,0.2)] flex items-center justify-center">
+                            <div className="h-12 w-12 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent" />
                         </div>
 
-                        <div>
-                            <h3 className="text-2xl font-bold text-brand-text mb-1">
-                                Join the Community
-                            </h3>
-                            <p className="text-brand-text/60 text-sm">
-                                Connect with builders shipping modern cloud and edge systems.
-                            </p>
+                        {/* Orbit Circles */}
+                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[250px] w-[250px] rounded-full border border-brand-accent/40 dark:border-brand-accent/30 border-dashed animate-[spin_30s_linear_infinite]" />
+                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[350px] w-[350px] rounded-full border border-brand-accent/30 dark:border-brand-accent/20 animate-[spin_45s_linear_infinite_reverse]" />
+
+                        <div className="absolute left-1/2 top-1/2">
+                            {[
+                                { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
+                                { name: "Kubernetes", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg" },
+                                { name: "Linux", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" },
+                                { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", darkThemeInvert: true },
+                                { name: "Grafana", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/grafana/grafana-original.svg" },
+                                { name: "Github", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", darkThemeInvert: true },
+                            ].map((tech, i) => {
+                                return (
+                                    <div
+                                        key={tech.name}
+                                        className="absolute w-12 h-12 flex items-center justify-center p-2"
+                                        style={{
+                                            animation: `orbit1 30s linear infinite`,
+                                            animationDelay: `-${(30 / 6) * i}s`
+                                        }}
+                                    >
+                                        <div className="flex items-center justify-center">
+                                            <Image
+                                                src={tech.icon}
+                                                alt={tech.name}
+                                                width={32}
+                                                height={32}
+                                                unoptimized
+                                                className={tech.darkThemeInvert ? 'dark:invert' : ''}
+                                            />
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
 
-                        <a
-                            href="https://discord.gg/edgeopslabs"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[#5865F2] px-6 py-3 font-semibold text-white transition-all hover:bg-[#4752c4] hover:shadow-[0_0_20px_rgba(88,101,242,0.4)]"
-                        >
-                            Enter the Lab
-                            <ArrowUpRight size={18} />
-                        </a>
-
-                        <div className="flex items-center -space-x-3 pt-2">
-                            {[1, 2, 3, 4, 5].map((i) => (
-                                <div key={i} className="relative w-8 h-8 rounded-full border-2 border-[#1a1a2e] overflow-hidden ring-2 ring-transparent">
-                                    <Image
-                                        src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 40}&backgroundColor=b6e3f4`}
-                                        alt="Community member"
-                                        fill
-                                        sizes="32px"
-                                        unoptimized
-                                        className="object-cover"
-                                    />
-                                </div>
-                            ))}
-                            <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#1a1a2e] bg-brand-primary/20 text-[10px] font-bold text-brand-primary ring-2 ring-transparent">
-                                +5k
-                            </div>
+                        <div className="absolute left-1/2 top-1/2">
+                            {[
+                                { name: "Prometheus", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prometheus/prometheus-original.svg" },
+                                { name: "Jenkins", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" },
+                                { name: "Ansible", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ansible/ansible-original.svg" },
+                                { name: "Terraform", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg" },
+                                { name: "OpenShift", icon: "https://cdn.simpleicons.org/redhatopenshift/EE0000" },
+                                { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" },
+                                { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
+                            ].map((tech, i) => {
+                                return (
+                                    <div
+                                        key={tech.name}
+                                        className="absolute w-14 h-14 flex items-center justify-center p-2"
+                                        style={{
+                                            animation: `orbit2 45s linear infinite reverse`,
+                                            animationDelay: `-${(45 / 7) * i}s`
+                                        }}
+                                    >
+                                        <div className="flex items-center justify-center">
+                                            <Image src={tech.icon} alt={tech.name} width={36} height={36} unoptimized />
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
-                </motion.div>
+                </div>
+
+
+
+
             </div>
         </section>
     );
