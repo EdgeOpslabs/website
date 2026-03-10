@@ -41,7 +41,7 @@ export function BlogNotesSection() {
                     </div>
                     <h2 className="text-3xl font-bold font-mono text-brand-text">Transmission Logs (Blogs)</h2>
                 </div>
-                <Link href="https://afzal-khan-blogs.vercel.app/" target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center gap-2 text-sm font-mono text-brand-text/60 hover:text-brand-primary transition-colors group">
+                <Link href="https://www.blog.edgeopslabs.com" target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center gap-2 text-sm font-mono text-brand-text/60 hover:text-brand-primary transition-colors group">
                     View All Logs <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
             </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Star, Linkedin, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { DiscordIcon } from "@/components/icons";
@@ -43,11 +42,17 @@ export function CommunityCreators() {
                         {/* Card Content */}
                         <div className="relative z-10 m-[1px] md:m-[2px] p-6 lg:p-8 rounded-[15px] bg-gradient-to-b from-card to-background flex flex-col items-center text-center h-[calc(100%-2px)] md:h-[calc(100%-4px)] hover:bg-black/90">
 
-                            <div className="relative rounded-full border-4 overflow-hidden mb-6 transition-colors w-24 h-24 border-white/10 group-hover:border-brand-primary/50">
+                            {/* Inner Glow effect behind avatar for center card */}
+                            {creator.isCenter && (
+                                <div className="absolute top-10 left-1/2 -translate-x-1/2 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl -z-10" />
+                            )}
+
+                            <div className={`relative rounded-full border-4 overflow-hidden mb-6 transition-colors ${creator.isCenter ? 'w-32 h-32 border-amber-500/50 group-hover:border-amber-400' : 'w-24 h-24 border-white/10 group-hover:border-brand-primary/50'
+                                }`}>
                                 <img
                                     src={creator.avatar}
                                     alt={creator.name}
-                                    className="w-full h-full object-cover"
+                                    className="object-cover w-full h-full"
                                 />
                             </div>
 

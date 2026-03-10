@@ -45,10 +45,13 @@ export function MemberMarketing() {
                         {/* Inner Card content, absolute inset with padding to act as 'border' radius clip */}
                         <div className="relative z-10 p-6 m-[1px] md:m-[2px] rounded-[11px] bg-gradient-to-br from-card to-background hover:bg-black/80 transition-all flex flex-col items-center text-center h-[calc(100%-2px)] md:h-[calc(100%-4px)]">
                             <div className="relative w-28 h-28 rounded-full border-4 border-transparent group-hover:border-brand-primary/50 transition-colors overflow-hidden mb-5">
-                                <img
+                                <Image
                                     src={member.avatar}
                                     alt={member.name}
-                                    className="w-full h-full object-cover"
+                                    fill
+                                    sizes="112px"
+                                    unoptimized
+                                    className="object-cover"
                                 />
                             </div>
                             <h3 className="font-bold text-xl text-brand-text group-hover:text-brand-primary transition-colors truncate w-full">

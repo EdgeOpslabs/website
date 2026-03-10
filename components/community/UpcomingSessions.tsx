@@ -5,43 +5,87 @@ import { Calendar, Clock, MapPin, CalendarPlus, ChevronLeft, ChevronRight, X } f
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-function parseICS(icsString: string) {
-    const events: any[] = [];
-    const lines = icsString.split(/\r?\n/);
-    let currentEvent: any = null;
+type CalendarEvent = {
+    summary?: string;
+    description?: string;
+    location?: string;
+    start: string;
+    end?: string;
+    isAllDay?: boolean;
+};
 
-    for (let i = 0; i < lines.length; i++) {
-        const line = lines[i];
+type CalendarResult = {
+    events?: CalendarEvent[];
+    error?: string;
+};
+
+function unfoldICSLines(icsString: string): string[] {
+    const rawLines = icsString.split(/\r?\n/);
+    const unfolded: string[] = [];
+
+    for (const line of rawLines) {
+        if ((line.startsWith(" ") || line.startsWith("\t")) && unfolded.length > 0) {
+            unfolded[unfolded.length - 1] += line.slice(1);
+            continue;
+        }
+        unfolded.push(line);
+    }
+
+    return unfolded;
+}
+
+function parseICalDate(raw: string): { iso: string; isAllDay: boolean } | null {
+    // DATE format (all day): 20260309
+    if (/^\d{8}$/.test(raw)) {
+        const iso = `${raw.slice(0, 4)}-${raw.slice(4, 6)}-${raw.slice(6, 8)}T00:00:00Z`;
+        return { iso, isAllDay: true };
+    }
+
+    // DATE-TIME format: 20260309T093000Z or without Z
+    const match = raw.match(/^(\d{8})T(\d{6})Z?$/);
+    if (!match) return null;
+
+    const [, date, time] = match;
+    const iso = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)}T${time.slice(0, 2)}:${time.slice(2, 4)}:${time.slice(4, 6)}Z`;
+    return { iso, isAllDay: false };
+}
+
+function parseICS(icsString: string): CalendarEvent[] {
+    const events: CalendarEvent[] = [];
+    const lines = unfoldICSLines(icsString);
+    let currentEvent: Partial<CalendarEvent> | null = null;
+
+    for (const line of lines) {
+        const separatorIndex = line.indexOf(":");
+        if (separatorIndex === -1) continue;
+
+        const rawKey = line.slice(0, separatorIndex);
+        const value = line.slice(separatorIndex + 1);
+        const key = rawKey.split(";")[0];
 
         if (line.startsWith('BEGIN:VEVENT')) {
             currentEvent = {};
         } else if (line.startsWith('END:VEVENT')) {
             if (currentEvent && currentEvent.start) {
-                events.push(currentEvent);
+                events.push(currentEvent as CalendarEvent);
             }
             currentEvent = null;
         } else if (currentEvent) {
-            if (line.startsWith('SUMMARY:')) currentEvent.summary = line.substring(8);
-            if (line.startsWith('DESCRIPTION:')) currentEvent.description = line.substring(12);
-            if (line.startsWith('LOCATION:')) currentEvent.location = line.substring(9);
+            if (key === "SUMMARY") currentEvent.summary = value;
+            if (key === "DESCRIPTION") currentEvent.description = value.replace(/\\n/g, "\n");
+            if (key === "LOCATION") currentEvent.location = value;
 
-            if (line.startsWith('DTSTART:')) {
-                const raw = line.substring(8);
-                if (raw.length === 8) {
-                    currentEvent.start = `${raw.substring(0, 4)}-${raw.substring(4, 6)}-${raw.substring(6, 8)}T00:00:00Z`;
-                    currentEvent.isAllDay = true;
-                } else if (raw.includes('T')) {
-                    const r = raw.replace('Z', '');
-                    currentEvent.start = `${r.substring(0, 4)}-${r.substring(4, 6)}-${r.substring(6, 8)}T${r.substring(9, 11)}:${r.substring(11, 13)}:${r.substring(13, 15)}Z`;
+            if (key === "DTSTART") {
+                const parsed = parseICalDate(value);
+                if (parsed) {
+                    currentEvent.start = parsed.iso;
+                    currentEvent.isAllDay = parsed.isAllDay;
                 }
             }
-            if (line.startsWith('DTEND:')) {
-                const raw = line.substring(6);
-                if (raw.length === 8) {
-                    currentEvent.end = `${raw.substring(0, 4)}-${raw.substring(4, 6)}-${raw.substring(6, 8)}T00:00:00Z`;
-                } else if (raw.includes('T')) {
-                    const r = raw.replace('Z', '');
-                    currentEvent.end = `${r.substring(0, 4)}-${r.substring(4, 6)}-${r.substring(6, 8)}T${r.substring(9, 11)}:${r.substring(11, 13)}:${r.substring(13, 15)}Z`;
+            if (key === "DTEND") {
+                const parsed = parseICalDate(value);
+                if (parsed) {
+                    currentEvent.end = parsed.iso;
                 }
             }
         }
@@ -55,7 +99,7 @@ async function getUpcomingEvents() {
 
         if (!response.ok) {
             console.error('Failed to fetch ICS file');
-            return { error: "Failed to fetch events from Calendar API." };
+            return { error: "Failed to fetch events from Calendar API." } satisfies CalendarResult;
         }
 
         const icsText = await response.text();
@@ -71,14 +115,14 @@ async function getUpcomingEvents() {
 
         upcomingEvents.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
 
-        return { events: upcomingEvents.slice(0, 20) };
+        return { events: upcomingEvents.slice(0, 20) } satisfies CalendarResult;
     } catch (error) {
         console.error('Error fetching Google Calendar ICS events:', error);
-        return { error: "Failed to fetch events." };
+        return { error: "Failed to fetch events." } satisfies CalendarResult;
     }
 }
 
-function generateGoogleCalendarUrl(event: any) {
+function generateGoogleCalendarUrl(event: CalendarEvent) {
     const title = encodeURIComponent(event.summary || "Community Session");
     const details = encodeURIComponent(event.description || "");
     const location = encodeURIComponent(event.location || "Virtual");
@@ -100,13 +144,13 @@ function toDateString(date: Date) {
 }
 
 export function UpcomingSessions() {
-    const [events, setEvents] = useState<any[] | null>(null);
+    const [events, setEvents] = useState<CalendarEvent[] | null>(null);
     const [error, setError] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
 
     // Calendar State
     const [currentMonth, setCurrentMonth] = useState(new Date());
-    const [selectedEvent, setSelectedEvent] = useState<any | null>(null);
+    const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
 
     useEffect(() => {
         async function fetchEvents() {
@@ -117,7 +161,7 @@ export function UpcomingSessions() {
                 } else {
                     setEvents(result.events || []);
                 }
-            } catch (err) {
+            } catch {
                 setError(true);
             } finally {
                 setLoading(false);
@@ -170,7 +214,7 @@ export function UpcomingSessions() {
     }, [currentMonth]);
 
     const eventsByDate = useMemo(() => {
-        const map: Record<string, any[]> = {};
+        const map: Record<string, CalendarEvent[]> = {};
         if (!events) return map;
 
         events.forEach(evt => {
@@ -231,7 +275,7 @@ export function UpcomingSessions() {
                     <Calendar className="w-16 h-16 text-red-500/40 mb-6" />
                     <h3 className="text-xl font-bold text-red-400 mb-2">Calendar Sync Error</h3>
                     <p className="text-brand-text/60 max-w-md">
-                        Unable to synchronize sessions from the public calendar URL at this time.
+                        Unable to synchronize sessions from the calendar provider at this time.
                     </p>
                 </div>
             </section>

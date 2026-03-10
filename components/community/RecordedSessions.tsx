@@ -46,7 +46,7 @@ export function RecordedSessions() {
                 {SESSIONS.map((session, i) => (
                     <motion.a
                         key={session.id}
-                        href="https://youtube.com"
+                        href="https://youtube.com/@iemafzalhassan"
                         target="_blank"
                         rel="noopener noreferrer"
                         initial={{ opacity: 0, y: 20 }}

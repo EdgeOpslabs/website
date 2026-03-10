@@ -61,7 +61,7 @@ export function Contributors() {
                 console.error("Failed to load contributors", error);
                 // Fallback to core architect if API fails
                 setContributors([
-                    { id: 1, login: "iemafzal", avatar_url: "https://github.com/iemafzal.png", html_url: "https://github.com/iemafzal", contributions: 1337 },
+                    { id: 1, login: "iemafzal", avatar_url: "https://github.com/iemafzalhassan.png", html_url: "https://github.com/iemafzalhassan", contributions: 1337 },
                 ]);
             } finally {
                 setLoading(false);

@@ -70,7 +70,7 @@ export function RoadmapSection() {
                 </div>
 
                 <div className="space-y-12">
-                    {ROADMAP.map((phase, i) => (
+                    {ROADMAP.map((phase) => (
                         <div key={phase.month} className="relative flex flex-col md:flex-row items-start md:items-center justify-between group">
 
                             {/* Left Side (Month - Desktop) */}
