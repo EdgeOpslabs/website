@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { Terminal, User, Code } from "lucide-react";
 import Image from "next/image";
-import { Contributors } from "@/components/landing/Contributors";
+import { CommunityCreators } from "@/components/community/CommunityCreators";
+import { VisionMissionValues } from "@/components/about/VisionMissionValues";
 
 const team = [
     {
@@ -53,6 +54,16 @@ export default function AboutPage() {
                         We are building the operating system for the intelligent edge.
                         Our mission is to replace manual orchestration with autonomous agents.
                     </motion.p>
+                </div>
+
+                {/* Community Creators Section */}
+                <div className="mb-8">
+                    <CommunityCreators />
+                </div>
+
+                {/* Vision, Mission, and Values Section */}
+                <div className="mb-12">
+                    <VisionMissionValues />
                 </div>
 
                 {/* Team Section */}
@@ -116,9 +127,6 @@ export default function AboutPage() {
                         </motion.div>
                     </div>
                 </section>
-
-                {/* Contributors Section */}
-                <Contributors />
             </div>
         </main>
     );

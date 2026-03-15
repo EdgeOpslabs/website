@@ -4,11 +4,14 @@ const CALENDAR_URL = process.env.GOOGLE_CALENDAR_URL;
 
 export async function GET() {
     if (!CALENDAR_URL) {
-        console.error("GOOGLE_CALENDAR_URL is not configured");
-        return NextResponse.json(
-            { error: "Calendar integration is not configured." },
-            { status: 500 }
-        );
+        // Return empty ICS gracefully when URL is not yet configured
+        return new NextResponse("BEGIN:VCALENDAR\nVERSION:2.0\nEND:VCALENDAR", {
+            status: 200,
+            headers: {
+                "Content-Type": "text/calendar; charset=utf-8",
+                "Cache-Control": "no-store",
+            },
+        });
     }
 
     try {

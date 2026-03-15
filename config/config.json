@@ -12,12 +12,12 @@
             },
             {
                 "id": 2,
-                "name": "Marcus Void",
+                "name": "Shaheen Nayyar",
                 "role": "Protocol Visionary",
-                "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus&backgroundColor=b6e3f4",
-                "linkedin": "https://linkedin.com",
+                "avatar": "/avatars/shaheen.png",
+                "linkedin": "https://www.linkedin.com/in/iemshaheen/",
                 "discord": "https://discord.com",
-                "portfolio": "https://example.com/marcus"
+                "portfolio": "https://shaheen.homes"
             },
             {
                 "id": 3,
@@ -34,7 +34,7 @@
                 "role": "Research & Content Creator ",
                 "avatar": "/api/avatar?url=https://lh3.googleusercontent.com/d/1krXA716xCrpZ2xJJdXjjq4k3N5stGDOH",
                 "linkedin": "https://www.linkedin.com/in/fauzeya-naheed/",
-                "discord": "https://discord.com",
+                "discord": "https://discord.com/users/1142871987090362438",
                 "portfolio": "https://www.fauzeya.in/"
             }
         ],

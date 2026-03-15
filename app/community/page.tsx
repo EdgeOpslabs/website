@@ -6,7 +6,6 @@ import { Github, Twitter, Radio, Globe, Linkedin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DiscordIcon } from "@/components/icons";
 
-import { CommunityCreators } from "@/components/community/CommunityCreators";
 import { MemberMarketing } from "@/components/community/MemberMarketing";
 import { BlogNotesSection } from "@/components/community/BlogNotesSection";
 import { RoadmapSection } from "@/components/community/RoadmapSection";
@@ -77,14 +76,13 @@ export default function CommunityPage() {
 
                 {/* --- CONTENT SECTIONS --- */}
                 <div className="max-w-6xl mx-auto">
-                    <CommunityCreators />
                     <MemberMarketing />
                     <BlogNotesSection />
                     <RoadmapSection />
                     <CommitHistory />
                     <UpcomingSessions />
                     <FeaturedRepos />
-                    <RecordedSessions />
+                    {/* <RecordedSessions /> */}
                     <FreeTools />
                 </div>
 
