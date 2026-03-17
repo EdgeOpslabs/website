@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Eye, Rocket, Heart, Zap, Shield, Globe } from "lucide-react";
+import { Eye, Rocket, Heart, Zap, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const values = [

@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { Handshake } from "lucide-react";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 import config from "@/config/config.json";
 
 export function PartnersCarousel() {
@@ -43,13 +45,17 @@ export function PartnersCarousel() {
                             key={`${partner.name}-${i}`}
                             className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-700 opacity-40 hover:opacity-100 cursor-pointer px-4"
                         >
-                            <img
+                            <Image
                                 src={partner.logo}
                                 alt={partner.name}
-                                className={`h-10 md:h-12 w-auto object-contain transition-all duration-500 hover:scale-110 ${
+                                width={120}
+                                height={48}
+                                className={cn(
+                                    "h-10 md:h-12 w-auto object-contain transition-all duration-500 hover:scale-110",
                                     partner.name.toLowerCase() === 'github' ? 'dark:invert' : ''
-                                }`}
+                                )}
                                 loading="lazy"
+                                unoptimized
                             />
                         </div>
                     ))}

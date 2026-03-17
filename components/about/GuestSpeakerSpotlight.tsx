@@ -3,10 +3,9 @@
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
-import config from "@/config/config.json";
+import speakers from "@/config/guestSpeakers.json";
 
 export function GuestSpeakerSpotlight() {
-    const speakers = config.community.guestSpeakers;
 
     return (
         <section className="py-16 md:py-24 border-t border-brand-primary/10">
@@ -69,7 +68,7 @@ export function GuestSpeakerSpotlight() {
                                     {speaker.role} of {speaker.company}
                                 </p>
                                 <p className="text-xs text-brand-text/40 font-mono italic">
-                                    "{speaker.topic}"
+                                    &quot;{speaker.topic}&quot;
                                 </p>
                             </div>
                             

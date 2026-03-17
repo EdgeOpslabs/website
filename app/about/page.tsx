@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Terminal, Code } from "lucide-react";
-import Image from "next/image";
+import { Terminal } from "lucide-react";
 import { CommunityCreators } from "@/components/community/CommunityCreators";
 import { VisionMissionValues } from "@/components/about/VisionMissionValues";
 import { CommunityContributors } from "@/components/about/CommunityContributors";
@@ -53,17 +52,17 @@ export default function AboutPage() {
                     {/* Vision, Mission, and Values Section */}
                     <VisionMissionValues />
 
-                    {/* Community Contributors - THE ARCHITECTS */}
+                    {/* Community Creators Section - The Team */}
+                    <CommunityCreators />
+
+                    {/* Community Contributors - THE ARCHITECTS (Founder) */}
                     <CommunityContributors />
 
-                    {/* Guest Speaker Spotlight */}
+                    {/* Guest Speaker Spotlight - Industry Experts */}
                     <GuestSpeakerSpotlight />
 
-                    {/* Partners Carousel */}
+                    {/* Partners Carousel - Social Proof / Trust */}
                     <PartnersCarousel />
-
-                    {/* Community Creators Section */}
-                    <CommunityCreators />
                 </div>
             </div>
         </main>
