@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/layout/Navbar";
 import { FooterSection } from "@/components/landing/FooterSection";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -49,6 +50,7 @@ export default function RootLayout({
             <FooterSection />
           </div>
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
