@@ -3,12 +3,12 @@
         "creators": [
             {
                 "id": 1,
-                "name": "Elena Tech",
+                "name": "Afzal Hassan",
                 "role": "Architecture Lead",
-                "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Elena&backgroundColor=b6e3f4",
-                "linkedin": "https://linkedin.com",
-                "discord": "https://discord.com",
-                "portfolio": "https://example.com/elena"
+                "avatar": "https://github.com/iemafzalhassan.png",
+                "linkedin": "https://linkedin.com/in/iemafzalhassan",
+                "discord": "http://discord.com/channels/@me/488221103609872384",
+                "portfolio": "https://www.iemafzalhassan.com"
             },
             {
                 "id": 2,
@@ -16,7 +16,7 @@
                 "role": "Protocol Visionary",
                 "avatar": "/avatars/shaheen.png",
                 "linkedin": "https://www.linkedin.com/in/iemshaheen/",
-                "discord": "https://discord.com",
+                "discord": "http://discord.com/channels/@me/1339464470627352596",
                 "portfolio": "https://shaheen.homes"
             },
             {
@@ -25,7 +25,7 @@
                 "role": "Backend Handler",
                 "avatar": "/api/avatar?url=https://lh3.googleusercontent.com/d/1mmVdGX1u319Gm4WaOnR8QCs5k23BBT8H",
                 "linkedin": "https://www.linkedin.com/in/saim-shaikh-devops/",
-                "discord": "https://discord.com/users/643874595727867924",
+                "discord": "http://discord.com/channels/@me/643874595727867924",
                 "portfolio": "https://www.saimeshaikh.in/"
             },
             {
@@ -34,7 +34,7 @@
                 "role": "Research & Content Creator ",
                 "avatar": "/api/avatar?url=https://lh3.googleusercontent.com/d/1krXA716xCrpZ2xJJdXjjq4k3N5stGDOH",
                 "linkedin": "https://www.linkedin.com/in/fauzeya-naheed/",
-                "discord": "https://discord.com/users/1142871987090362438",
+                "discord": "http://discord.com/channels/@me/1142871987090362438",
                 "portfolio": "https://www.fauzeya.in/"
             }
         ],
