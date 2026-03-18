@@ -58,6 +58,17 @@ npm run dev
 
 Open `http://localhost:4321` and verify the integrity of the build.
 
+### Live Blog Telemetry
+
+The Community page pulls real-time highlights from the blog deployment through the `/api/posts/highlights` endpoint. Configure the origin via:
+
+```bash
+NEXT_PUBLIC_BLOG_BASE_URL="https://blogs.edgeopslabs.com"
+```
+
+If you run a preview/staging blog environment, point this variable to that URL so the marketing site fetches the correct feed.
+When `NEXT_PUBLIC_BLOG_BASE_URL` is omitted, the site automatically uses `http://localhost:3001` in development and `https://blogs.edgeopslabs.com` in production, so local dev setups “just work” when both apps run side by side.
+
 ## 🤝 Contributing
 
 **We welcome contributions, but we demand excellence.**

@@ -7,7 +7,8 @@
         "topic": "Scaling Kubernetes in Production",
         "date": "March 2025",
         "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Speaker1&backgroundColor=b6e3f4",
-        "linkedin": "https://linkedin.com"
+        "linkedin": "https://linkedin.com",
+        "github": "https://github.com/janesmith"
     },
     {
         "id": 2,
@@ -17,7 +18,8 @@
         "topic": "AI-Driven Cloud Infrastructures",
         "date": "April 2025",
         "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Jason&backgroundColor=d1d4f9",
-        "linkedin": "https://linkedin.com"
+        "linkedin": "https://linkedin.com",
+        "github": "https://github.com/jasonwild"
     },
     {
         "id": 3,
@@ -27,7 +29,8 @@
         "topic": "Digital Transformation in Healthcare",
         "date": "May 2025",
         "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Alexandra&backgroundColor=ffdfbf",
-        "linkedin": "https://linkedin.com"
+        "linkedin": "https://linkedin.com",
+        "github": "https://github.com/alexandragoncalves"
     },
     {
         "id": 4,
@@ -37,7 +40,8 @@
         "topic": "Enterprise Scale Security",
         "date": "June 2025",
         "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Natalia&backgroundColor=ffd5dc",
-        "linkedin": "https://linkedin.com"
+        "linkedin": "https://linkedin.com",
+        "github": "https://github.com/nataliakory"
     },
     {
         "id": 5,
@@ -47,7 +51,8 @@
         "topic": "Future of Industrial Computing",
         "date": "July 2025",
         "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Alessandro&backgroundColor=c0ebf8",
-        "linkedin": "https://linkedin.com"
+        "linkedin": "https://linkedin.com",
+        "github": "https://github.com/alessandrodelluca"
     },
     {
         "id": 6,
@@ -57,6 +62,7 @@
         "topic": "Global Tech Policy",
         "date": "August 2025",
         "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Iveta&backgroundColor=ffdfbf",
-        "linkedin": "https://linkedin.com"
+        "linkedin": "https://linkedin.com",
+        "github": "https://github.com/iveta"
     }
 ]

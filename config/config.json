@@ -5,8 +5,10 @@
                 "id": 1,
                 "name": "Afzal Hassan",
                 "role": "Architecture Lead",
+                "bio": "",
                 "avatar": "https://github.com/iemafzalhassan.png",
                 "linkedin": "https://linkedin.com/in/iemafzalhassan",
+                "github": "https://github.com/iemafzalhassan",
                 "discord": "http://discord.com/channels/@me/488221103609872384",
                 "portfolio": "https://www.iemafzalhassan.in"
             },
@@ -14,8 +16,10 @@
                 "id": 2,
                 "name": "Shaheen Nayyar",
                 "role": "Protocol Visionary",
+                "bio": "",
                 "avatar": "/avatars/shaheen.png",
                 "linkedin": "https://www.linkedin.com/in/iemshaheen/",
+                "github": "https://github.com/shaheen8954",
                 "discord": "http://discord.com/channels/@me/1339464470627352596",
                 "portfolio": "https://shaheen.homes"
             },
@@ -23,8 +27,10 @@
                 "id": 3,
                 "name": "Saime Shaikh",
                 "role": "Backend Handler",
+                "bio": "",
                 "avatar": "/api/avatar?url=https://lh3.googleusercontent.com/d/1mmVdGX1u319Gm4WaOnR8QCs5k23BBT8H",
                 "linkedin": "https://www.linkedin.com/in/saim-shaikh-devops/",
+                "github": "https://github.com/SaimShaikh",
                 "discord": "http://discord.com/channels/@me/643874595727867924",
                 "portfolio": "https://www.saimeshaikh.in/"
             },
@@ -32,8 +38,10 @@
                 "id": 4,
                 "name": "Fauzeya Naheed",
                 "role": "Research & Content Creator ",
+                "bio": "",
                 "avatar": "/api/avatar?url=https://lh3.googleusercontent.com/d/1krXA716xCrpZ2xJJdXjjq4k3N5stGDOH",
                 "linkedin": "https://www.linkedin.com/in/fauzeya-naheed/",
+                "github": "https://github.com/fauzeya67",
                 "discord": "http://discord.com/channels/@me/1142871987090362438",
                 "portfolio": "https://www.fauzeya.in/"
             }
@@ -69,7 +77,7 @@
             { "name": "Docker", "logo": "https://cdn.worldvectorlogo.com/logos/docker-3.svg" },
             { "name": "GitHub", "logo": "https://cdn.worldvectorlogo.com/logos/github-icon-1.svg" },
             { "name": "HashiCorp", "logo": "https://cdn.worldvectorlogo.com/logos/hashicorp.svg" },
-            { "name": "Kubernetes", "logo": "https://cdn.worldvectorlogo.com/logos/kubernetes.svg" },
+            { "name": "Kubernetes", "logo": "https://cdn.worldvectorlogo.com/logos/kubernets.svg" },
             { "name": "Grafana", "logo": "https://cdn.worldvectorlogo.com/logos/grafana.svg" }
         ]
     }

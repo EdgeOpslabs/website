@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { Terminal } from "lucide-react";
 import { CommunityCreators } from "@/components/community/CommunityCreators";
-import { VisionMissionValues } from "@/components/about/VisionMissionValues";
+import { VisionMission } from "@/components/about/VisionMission";
+import { CommunityWorks } from "@/components/about/CommunityWorks";
 import { CommunityContributors } from "@/components/about/CommunityContributors";
 import { GuestSpeakerSpotlight } from "@/components/about/GuestSpeakerSpotlight";
 import { PartnersCarousel } from "@/components/about/PartnersCarousel";
@@ -49,8 +50,14 @@ export default function AboutPage() {
 
                 {/* Main Content Sections */}
                 <div className="space-y-8">
-                    {/* Vision, Mission, and Values Section */}
-                    <VisionMissionValues />
+                    {/* Vision and Mission Section */}
+                    <VisionMission />
+
+                    {/* Partners Carousel - Strategic Partners */}
+                    <PartnersCarousel />
+
+                    {/* Community Works Section - Core Principles */}
+                    <CommunityWorks />
 
                     {/* Community Creators Section - The Team */}
                     <CommunityCreators />
@@ -60,9 +67,6 @@ export default function AboutPage() {
 
                     {/* Guest Speaker Spotlight - Industry Experts */}
                     <GuestSpeakerSpotlight />
-
-                    {/* Partners Carousel - Social Proof / Trust */}
-                    <PartnersCarousel />
                 </div>
             </div>
         </main>
