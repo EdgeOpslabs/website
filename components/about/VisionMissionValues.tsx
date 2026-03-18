@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Eye, Rocket, Heart, Zap, Shield, Globe } from "lucide-react";
+import { Eye, Rocket, Heart, Zap, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const values = [
@@ -33,7 +33,7 @@ const values = [
 
 export function VisionMissionValues() {
     return (
-        <section className="py-12 md:py-20 relative">
+        <section className="py-16 md:py-24 relative border-t border-brand-primary/10">
             {/* Background Glows */}
             <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-brand-primary/5 rounded-full blur-[100px] -z-10" />
             <div className="absolute top-1/4 right-0 w-[300px] h-[300px] bg-blue-500/5 rounded-full blur-[80px] -z-10" />

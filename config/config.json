@@ -63,6 +63,14 @@
                 "linkedin": "https://linkedin.com",
                 "discord": "https://discord.com"
             }
+        ],
+        "partners": [
+            { "name": "AWS", "logo": "https://cdn.worldvectorlogo.com/logos/aws-2.svg" },
+            { "name": "Docker", "logo": "https://cdn.worldvectorlogo.com/logos/docker-3.svg" },
+            { "name": "GitHub", "logo": "https://cdn.worldvectorlogo.com/logos/github-icon-1.svg" },
+            { "name": "HashiCorp", "logo": "https://cdn.worldvectorlogo.com/logos/hashicorp.svg" },
+            { "name": "Kubernetes", "logo": "https://cdn.worldvectorlogo.com/logos/kubernetes.svg" },
+            { "name": "Grafana", "logo": "https://cdn.worldvectorlogo.com/logos/grafana.svg" }
         ]
     }
 }

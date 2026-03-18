@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Star, Linkedin, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { DiscordIcon } from "@/components/icons";
 
 import { siteConfig } from "@/lib/config-schema";
@@ -11,7 +12,7 @@ const CREATORS = siteConfig.community.creators;
 
 export function CommunityCreators() {
     return (
-        <section className="py-16 mb-8">
+        <section className="py-16 md:py-24 border-t border-brand-primary/10 mb-8">
             <div className="flex items-center gap-3 mb-16 justify-center text-center">
                 <div className="p-2 rounded-lg bg-amber-500/10 text-amber-500">
                     <Star size={24} className="fill-amber-500/50" />
@@ -49,10 +50,12 @@ export function CommunityCreators() {
 
                             <div className={`relative rounded-full border-4 overflow-hidden mb-6 transition-colors ${creator.isCenter ? 'w-32 h-32 border-amber-500/50 group-hover:border-amber-400' : 'w-24 h-24 border-white/10 group-hover:border-brand-primary/50'
                                 }`}>
-                                <img
+                                <Image
                                     src={creator.avatar}
                                     alt={creator.name}
-                                    className="object-cover w-full h-full"
+                                    fill
+                                    className="object-cover"
+                                    unoptimized
                                 />
                             </div>
 

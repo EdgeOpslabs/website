@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 function FooterLink({
     href,
     label,
@@ -7,24 +9,39 @@ function FooterLink({
     label: string;
     external?: boolean;
 }) {
-    return (
-        <a
-            href={href}
-            target={external ? "_blank" : undefined}
-            rel={external ? "noopener noreferrer" : undefined}
-            className="group relative inline-flex items-center px-2 py-1 no-underline transition-colors text-brand-text/70 hover:text-brand-primary"
-        >
-            <span className="relative z-10 flex items-center gap-1 font-mono text-sm">
-                <span className="text-brand-primary transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0">
-                    [
-                </span>
-                {label}
-                <span className="text-brand-primary transition-all duration-300 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0">
-                    ]
-                </span>
+    const content = (
+        <span className="relative z-10 flex items-center gap-1 font-mono text-sm">
+            <span className="text-brand-primary transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0">
+                [
             </span>
+            {label}
+            <span className="text-brand-primary transition-all duration-300 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0">
+                ]
+            </span>
+        </span>
+    );
+
+    const className = "group relative inline-flex items-center px-2 py-1 no-underline transition-colors text-brand-text/70 hover:text-brand-primary";
+
+    if (external) {
+        return (
+            <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={className}
+            >
+                {content}
+                <span className="absolute inset-0 -z-10 rounded-md bg-brand-primary/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            </a>
+        );
+    }
+
+    return (
+        <Link href={href} className={className}>
+            {content}
             <span className="absolute inset-0 -z-10 rounded-md bg-brand-primary/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-        </a>
+        </Link>
     );
 }
 
@@ -94,13 +111,13 @@ export const FooterSection = () => {
                         </h4>
                         <ul className="space-y-3 text-sm text-brand-text/60">
                             <li>
-                                <FooterLink href="/about" label="Privacy Policy" />
+                                <FooterLink href="/privacy" label="Privacy Policy" />
                             </li>
                             <li>
-                                <FooterLink href="/about" label="Terms of Service" />
+                                <FooterLink href="/terms" label="Terms of Service" />
                             </li>
                             <li>
-                                <FooterLink href="/community" label="Code of Conduct" />
+                                <FooterLink href="/code-of-conduct" label="Code of Conduct" />
                             </li>
                         </ul>
                     </div>

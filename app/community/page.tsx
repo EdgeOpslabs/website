@@ -12,7 +12,6 @@ import { RoadmapSection } from "@/components/community/RoadmapSection";
 import { CommitHistory } from "@/components/community/CommitHistory";
 import { UpcomingSessions } from "@/components/community/UpcomingSessions";
 import { FeaturedRepos } from "@/components/community/FeaturedRepos";
-import { RecordedSessions } from "@/components/community/RecordedSessions";
 import { FreeTools } from "@/components/community/FreeTools";
 
 const channels = [
@@ -82,7 +81,6 @@ export default function CommunityPage() {
                     <CommitHistory />
                     <UpcomingSessions />
                     <FeaturedRepos />
-                    {/* <RecordedSessions /> */}
                     <FreeTools />
                 </div>
 

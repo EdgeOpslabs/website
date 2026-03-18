@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "name": "Jane Smith",
+        "company": "AWS",
+        "role": "Cloud Architect",
+        "topic": "Scaling Kubernetes in Production",
+        "date": "March 2025",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Speaker1&backgroundColor=b6e3f4",
+        "linkedin": "https://linkedin.com"
+    },
+    {
+        "id": 2,
+        "name": "Jason Wild",
+        "company": "Microsoft",
+        "role": "VP and CEO of Innovation",
+        "topic": "AI-Driven Cloud Infrastructures",
+        "date": "April 2025",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Jason&backgroundColor=d1d4f9",
+        "linkedin": "https://linkedin.com"
+    },
+    {
+        "id": 3,
+        "name": "Alexandra Gonçalves",
+        "company": "Bristol Myers Squibb",
+        "role": "VP for Medical Digital Health",
+        "topic": "Digital Transformation in Healthcare",
+        "date": "May 2025",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Alexandra&backgroundColor=ffdfbf",
+        "linkedin": "https://linkedin.com"
+    },
+    {
+        "id": 4,
+        "name": "Natalia Kory",
+        "company": "JP Morgan Chase",
+        "role": "Managing Director",
+        "topic": "Enterprise Scale Security",
+        "date": "June 2025",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Natalia&backgroundColor=ffd5dc",
+        "linkedin": "https://linkedin.com"
+    },
+    {
+        "id": 5,
+        "name": "Alessandro de Luca",
+        "company": "Merck",
+        "role": "Chief Information Officer",
+        "topic": "Future of Industrial Computing",
+        "date": "July 2025",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Alessandro&backgroundColor=c0ebf8",
+        "linkedin": "https://linkedin.com"
+    },
+    {
+        "id": 6,
+        "name": "Iveta Radičová",
+        "company": "Slovakia",
+        "role": "Former Prime Minister",
+        "topic": "Global Tech Policy",
+        "date": "August 2025",
+        "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Iveta&backgroundColor=ffdfbf",
+        "linkedin": "https://linkedin.com"
+    }
+]
