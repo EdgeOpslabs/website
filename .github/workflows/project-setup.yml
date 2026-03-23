@@ -40,7 +40,7 @@ jobs:
       - name: Configure project
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.PROJECT_TOKEN }}
+          github-token: ${{ secrets.PROJECT_TOKEN || github.token }}
           script: |
             const PROJECT_NUMBER = parseInt(process.env.PROJECT_NUMBER, 10);
             const ORG            = process.env.ORG;
