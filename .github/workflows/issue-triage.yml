@@ -1,0 +1,102 @@
+name: Issue Triage
+
+# Automatically classifies and routes new issues to the correct area and
+# assigns an initial priority based on keyword signals in the title/body.
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Classify issue by title prefix, area, and priority
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title          = context.payload.issue.title ?? '';
+            const body           = context.payload.issue.body  ?? '';
+            const combined       = (`${title} ${body}`).toLowerCase();
+            const existingLabels = context.payload.issue.labels.map(l => l.name);
+            const labelsToAdd    = new Set();
+
+            const need = (label) => {
+              if (!existingLabels.includes(label)) labelsToAdd.add(label);
+            };
+
+            // ── Route by title prefix ──────────────────────────────────────
+            if (/^\[BUG\]/i.test(title)) {
+              need('type:bug');
+            } else if (/^\[FEAT\]/i.test(title) || /^\[FEATURE\]/i.test(title)) {
+              need('type:feature');
+            } else if (/^\[ENHANCEMENT\]/i.test(title)) {
+              need('type:enhancement');
+            } else if (/^\[DOCS\]/i.test(title)) {
+              need('type:documentation');
+            } else if (/^\[CHORE\]/i.test(title)) {
+              need('type:chore');
+              need('area:infrastructure');
+            } else if (/^\[PERF\]/i.test(title)) {
+              need('type:performance');
+            } else if (/^\[A11Y\]/i.test(title)) {
+              need('type:accessibility');
+            } else if (/^\[SECURITY\]/i.test(title)) {
+              need('type:security');
+              need('priority:high');
+            }
+
+            // ── Infer area from body keywords if not already set ───────────
+            if (!existingLabels.some(l => l.startsWith('area:'))) {
+              if (/\b(hero|footer|landing|homepage|home\s+page|cta|products?\s+section)\b/.test(combined))
+                need('area:landing');
+              else if (/\b(community|discord|session|roadmap|free\s+tools?|cheatsheet|blog\s+note|featured\s+repo)\b/.test(combined))
+                need('area:community');
+              else if (/\b(about|vision|mission|contributor|speaker|partner|carousel)\b/.test(combined))
+                need('area:about');
+              else if (/\b(products?\s+page|nexus|homebrew|open\s+kernel)\b/.test(combined))
+                need('area:products');
+              else if (/\b(privacy|terms|legal|code.of.conduct|conduct)\b/.test(combined))
+                need('area:legal');
+              else if (/\b(api|route|endpoint|avatar|calendar)\b/.test(combined))
+                need('area:api');
+              else if (/\b(deploy|ci|cd|action|workflow|infra|vercel|docker|k8s|kubernetes|dependency|deps|config)\b/.test(combined))
+                need('area:infrastructure');
+            }
+
+            // ── Priority detection ─────────────────────────────────────────
+            const hasPriority = existingLabels.some(l => l.startsWith('priority:'));
+            if (!hasPriority) {
+              if (
+                /\b(critical|urgent|prod(uction)?\s+down|outage|data\s+loss|security|breach)\b/.test(combined)
+              ) {
+                need('priority:critical');
+              } else if (
+                /\b(breaking|regression|major|important|blocked|blocker)\b/.test(combined)
+              ) {
+                need('priority:high');
+              } else if (existingLabels.includes('type:bug') || /^\[BUG\]/i.test(title)) {
+                need('priority:medium');
+              } else if (
+                existingLabels.includes('type:enhancement') ||
+                existingLabels.includes('type:feature') ||
+                /^\[(ENHANCEMENT|FEAT|FEATURE)\]/i.test(title)
+              ) {
+                need('priority:low');
+              }
+            }
+
+            // ── Always apply triage status ─────────────────────────────────
+            need('status:triage');
+
+            if (labelsToAdd.size > 0) {
+              await github.rest.issues.addLabels({
+                owner:        context.repo.owner,
+                repo:         context.repo.repo,
+                issue_number: context.payload.issue.number,
+                labels:       [...labelsToAdd],
+              });
+              core.info(`Added labels: ${[...labelsToAdd].join(', ')}`);
+            }

@@ -1,0 +1,103 @@
+name: "Bug Report"
+description: "Report a bug or broken functionality on the EdgeOps Labs website."
+title: "[BUG]: "
+labels:
+  - "type:bug"
+  - "status:triage"
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Bug Description"
+      description: "A clear and concise description of what is broken."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Steps to Reproduce"
+      value: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Expected Behaviour"
+      description: "What should have happened?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: "Actual Behaviour"
+      description: "What actually happened? Paste any error messages here."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: "Severity"
+      description: "How severely does this affect users?"
+      options:
+        - "Critical — site is down or data loss"
+        - "High — major feature broken"
+        - "Medium — degraded experience"
+        - "Low — minor cosmetic issue"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: "Affected Area"
+      description: "Which section of the website is affected?"
+      options:
+        - "Landing / Home"
+        - "Community"
+        - "About"
+        - "Products"
+        - "Legal (Privacy, Terms, Code of Conduct)"
+        - "API"
+        - "Navigation / Layout"
+        - "Other"
+    validations:
+      required: true
+
+  - type: input
+    id: page
+    attributes:
+      label: "Affected Page / Route"
+      description: "e.g. /community or /"
+    validations:
+      required: false
+
+  - type: input
+    id: browser
+    attributes:
+      label: "Browser and OS"
+      description: "e.g. Chrome 122 / macOS 14"
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Screenshots / Logs"
+      description: "If applicable, paste screenshots or error logs."
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: "Additional Context"
+      description: "Any other relevant information."
+    validations:
+      required: false

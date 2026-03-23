@@ -1,0 +1,69 @@
+name: "Enhancement"
+description: "Suggest an improvement to an existing feature or page on the EdgeOps Labs website."
+title: "[ENHANCEMENT]: "
+labels:
+  - "type:enhancement"
+  - "status:triage"
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: "Summary"
+      description: "A brief description of the improvement you would like to see."
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: "Current Behaviour"
+      description: "Describe how the feature currently works."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed
+    attributes:
+      label: "Proposed Improvement"
+      description: "How should it work instead? Include UX or visual details if relevant."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: "Feature Area"
+      description: "Which part of the website does this affect?"
+      options:
+        - "Landing / Home"
+        - "Community"
+        - "About"
+        - "Products"
+        - "Legal (Privacy, Terms, Code of Conduct)"
+        - "API"
+        - "Navigation / Layout"
+        - "Performance"
+        - "Accessibility"
+        - "SEO / Meta"
+        - "Dark / Light mode"
+        - "Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: "Acceptance Criteria"
+      value: |
+        - [ ] Criterion 1
+        - [ ] Criterion 2
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: "Additional Context"
+      description: "Screenshots, references, or related issues."
+    validations:
+      required: false

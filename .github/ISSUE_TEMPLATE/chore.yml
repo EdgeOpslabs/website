@@ -1,0 +1,46 @@
+name: "Chore / Maintenance"
+description: "Dependency updates, refactoring, configuration changes, or other housekeeping tasks."
+title: "[CHORE]: "
+labels:
+  - "type:chore"
+  - "area:infrastructure"
+  - "status:triage"
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: "Summary"
+      description: "What maintenance work needs to be done?"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: "Category"
+      description: "What type of maintenance is this?"
+      options:
+        - "Dependency update"
+        - "Refactor"
+        - "Configuration change"
+        - "CI/CD improvement"
+        - "Code cleanup"
+        - "Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: "Rationale"
+      description: "Why is this change necessary? What risk or debt does it address?"
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: "Additional Context"
+      description: "Links to upstream changelogs, related issues, or any other relevant information."
+    validations:
+      required: false
