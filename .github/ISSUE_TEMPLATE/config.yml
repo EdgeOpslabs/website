@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Community Discussion
+    url: https://github.com/orgs/EdgeOpslabs/discussions
+    about: Ask questions and discuss ideas with the EdgeOps Labs community.
+  - name: EdgeOps Labs Blog
+    url: https://blogs.edgeopslabs.com
+    about: Read high-signal technical content from the EdgeOps Labs team.

@@ -1,0 +1,282 @@
+name: Project Automation
+
+# Automatically adds issues and pull requests to the GitHub Project board,
+# syncs project item custom fields (Status, Type, Priority, Area) from labels,
+# and enforces a single active status label per issue.
+#
+# Setup:
+#   1. Create a GitHub Project for this repository (or use the org-level project).
+#   2. Add the project URL as a repository variable:
+#        Settings -> Secrets and variables -> Actions -> Variables
+#        Name: PROJECT_URL   Value: https://github.com/orgs/EdgeOpslabs/projects/<number>
+#   3. Set the project number as a repository variable:
+#        Name: PROJECT_NUMBER   Value: <number>
+#   4. Create a fine-grained PAT (or a classic PAT) with "project" scope and
+#      add it as a repository secret named PROJECT_TOKEN.
+#   5. Run the "Project Setup" workflow once to provision the custom fields
+#      and views on the project board.
+
+on:
+  issues:
+    types: [opened, reopened, labeled]
+  pull_request:
+    types: [opened, reopened, labeled, ready_for_review]
+
+env:
+  PROJECT_NUMBER: ${{ vars.PROJECT_NUMBER || '1' }}
+  ORG: "EdgeOpslabs"
+
+jobs:
+  # ── Add every new issue / PR to the project board ────────────────────────
+  add-to-project:
+    name: Add to project
+    runs-on: ubuntu-latest
+    if: vars.PROJECT_URL != ''
+    permissions: {}
+    steps:
+      - name: Add issue or PR to project
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: ${{ vars.PROJECT_URL }}
+          github-token: ${{ secrets.PROJECT_TOKEN }}
+
+  # ── Sync project item fields from labels ──────────────────────────────────
+  sync-project-fields:
+    name: Sync project fields
+    runs-on: ubuntu-latest
+    needs: add-to-project
+    if: always() && vars.PROJECT_URL != ''
+    permissions: {}
+    steps:
+      - name: Map labels to project custom fields
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.PROJECT_TOKEN }}
+          script: |
+            const PROJECT_NUMBER = parseInt(process.env.PROJECT_NUMBER, 10);
+            const ORG            = process.env.ORG;
+
+            // ── Resolve item node_id and its current labels ───────────────
+            const isIssue = context.eventName === 'issues';
+            const item    = isIssue
+              ? context.payload.issue
+              : context.payload.pull_request;
+            if (!item) return;
+
+            const contentNodeId = item.node_id;
+            const itemLabels    = item.labels?.map(l => l.name) ?? [];
+
+            // ── Fetch project metadata (id + fields + options) ────────────
+            let projectData;
+            try {
+              projectData = await github.graphql(`
+                query GetProject($org: String!, $number: Int!) {
+                  organization(login: $org) {
+                    projectV2(number: $number) {
+                      id
+                      fields(first: 30) {
+                        nodes {
+                          ... on ProjectV2Field {
+                            id name dataType
+                          }
+                          ... on ProjectV2SingleSelectField {
+                            id name
+                            options { id name }
+                          }
+                          ... on ProjectV2IterationField {
+                            id name
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              `, { org: ORG, number: PROJECT_NUMBER });
+            } catch (err) {
+              core.warning(`Could not fetch project data: ${err.message}`);
+              return;
+            }
+
+            const project = projectData?.organization?.projectV2;
+            if (!project) { core.warning('Project not found'); return; }
+
+            const projectId = project.id;
+            const fields    = project.fields.nodes;
+
+            const findField  = (name) =>
+              fields.find(f => f.name?.toLowerCase() === name.toLowerCase());
+            const findOption = (field, name) =>
+              field?.options?.find(o => o.name?.toLowerCase() === name?.toLowerCase());
+
+            // ── Locate this issue / PR's project item id ──────────────────
+            let projectItemId;
+            try {
+              const itemData = await github.graphql(`
+                query GetProjectItem($nodeId: ID!) {
+                  node(id: $nodeId) {
+                    ... on Issue       { projectItems(first: 10) { nodes { id project { id } } } }
+                    ... on PullRequest { projectItems(first: 10) { nodes { id project { id } } } }
+                  }
+                }
+              `, { nodeId: contentNodeId });
+
+              projectItemId = itemData?.node?.projectItems?.nodes
+                ?.find(i => i.project.id === projectId)?.id;
+            } catch (err) {
+              core.warning(`Could not locate project item: ${err.message}`);
+              return;
+            }
+
+            if (!projectItemId) {
+              core.notice('Item not yet in project — skipping field sync');
+              return;
+            }
+
+            // ── Helper: set a single-select field value ───────────────────
+            const setField = async (field, optionName) => {
+              if (!field || !optionName) return;
+              const option = findOption(field, optionName);
+              if (!option) {
+                core.notice(`Option "${optionName}" not found in field "${field.name}" — skipping`);
+                return;
+              }
+              await github.graphql(`
+                mutation SetFieldValue(
+                  $projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!
+                ) {
+                  updateProjectV2ItemFieldValue(input: {
+                    projectId: $projectId
+                    itemId:    $itemId
+                    fieldId:   $fieldId
+                    value: { singleSelectOptionId: $optionId }
+                  }) { projectV2Item { id } }
+                }
+              `, { projectId, itemId: projectItemId, fieldId: field.id, optionId: option.id });
+              core.info(`Set "${field.name}" -> "${optionName}"`);
+            };
+
+            // ── Status ────────────────────────────────────────────────────
+            const STATUS_MAP = {
+              'status:triage':      'Triage',
+              'status:needs-info':  'Needs Info',
+              'status:in-progress': 'In Progress',
+              'status:ready':       'Ready',
+              'status:blocked':     'Blocked',
+              'status:complete':    'Complete',
+            };
+            const statusField = findField('Status');
+            const statusLabel = itemLabels.find(l => STATUS_MAP[l]);
+            if (statusLabel) {
+              await setField(statusField, STATUS_MAP[statusLabel]);
+            } else if (
+              statusField &&
+              (context.payload.action === 'opened' || context.payload.action === 'reopened')
+            ) {
+              await setField(statusField, 'Triage');
+            }
+
+            // ── Priority ──────────────────────────────────────────────────
+            const PRIORITY_MAP = {
+              'priority:critical': 'Critical',
+              'priority:high':     'High',
+              'priority:medium':   'Medium',
+              'priority:low':      'Low',
+            };
+            const priorityField = findField('Priority');
+            const priorityLabel = itemLabels.find(l => PRIORITY_MAP[l]);
+            if (priorityLabel) await setField(priorityField, PRIORITY_MAP[priorityLabel]);
+
+            // ── Type ──────────────────────────────────────────────────────
+            const TYPE_ORDERED = [
+              ['type:bug',           'Bug'],
+              ['type:feature',       'Feature'],
+              ['type:enhancement',   'Enhancement'],
+              ['type:documentation', 'Documentation'],
+              ['type:chore',         'Chore'],
+              ['type:performance',   'Performance'],
+              ['type:accessibility', 'Accessibility'],
+              ['type:security',      'Security'],
+            ];
+            const typeField = findField('Type');
+            for (const [label, typeName] of TYPE_ORDERED) {
+              if (itemLabels.includes(label)) {
+                await setField(typeField, typeName);
+                break;
+              }
+            }
+
+            // ── Area ──────────────────────────────────────────────────────
+            const AREA_MAP = {
+              'area:landing':        'Landing',
+              'area:community':      'Community',
+              'area:about':          'About',
+              'area:products':       'Products',
+              'area:legal':          'Legal',
+              'area:api':            'API',
+              'area:infrastructure': 'Infrastructure',
+            };
+            const areaField = findField('Area');
+            const areaLabel = itemLabels.find(l => AREA_MAP[l]);
+            if (areaLabel) await setField(areaField, AREA_MAP[areaLabel]);
+
+  # ── Auto-label new issues ─────────────────────────────────────────────────
+  auto-label-issue:
+    name: Label new issues
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' && github.event.action == 'opened'
+    permissions:
+      issues: write
+    steps:
+      - name: Apply status:triage label if missing
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = context.payload.issue.labels.map(l => l.name);
+            if (!labels.includes('status:triage')) {
+              await github.rest.issues.addLabels({
+                owner:        context.repo.owner,
+                repo:         context.repo.repo,
+                issue_number: context.payload.issue.number,
+                labels:       ['status:triage'],
+              });
+            }
+
+  # ── Sync status label when issue is closed or reopened ───────────────────
+  lifecycle-sync:
+    name: Sync lifecycle status
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' && github.event.action == 'labeled'
+    permissions:
+      issues: write
+    steps:
+      - name: Keep a single status label active
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const addedLabel = context.payload.label.name;
+            const issueNumber = context.payload.issue.number;
+            const statusLabels = [
+              'status:triage',
+              'status:needs-info',
+              'status:in-progress',
+              'status:ready',
+              'status:blocked',
+              'status:complete',
+            ];
+
+            // Only act when a status label was just added
+            if (!statusLabels.includes(addedLabel)) return;
+
+            // Remove all other status labels to prevent conflicts
+            const currentLabels = context.payload.issue.labels.map(l => l.name);
+            for (const s of statusLabels) {
+              if (s !== addedLabel && currentLabels.includes(s)) {
+                await github.rest.issues.removeLabel({
+                  owner:        context.repo.owner,
+                  repo:         context.repo.repo,
+                  issue_number: issueNumber,
+                  name:         s,
+                });
+                core.info(`Removed conflicting status label: ${s}`);
+              }
+            }

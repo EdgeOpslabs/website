@@ -1,0 +1,128 @@
+# Labels for EdgeOps Labs Website
+# Used by the label-sync workflow (.github/workflows/label-sync.yml)
+# Categories: type, area, status, priority, housekeeping
+
+# ── Issue / PR type ──────────────────────────────────────────────────────────
+- name: "type:bug"
+  color: "d73a4a"
+  description: "Something is broken or not working as expected."
+
+- name: "type:enhancement"
+  color: "a2eeef"
+  description: "Improvement to an existing feature or page."
+
+- name: "type:feature"
+  color: "0075ca"
+  description: "A new page, section, or significant addition."
+
+- name: "type:documentation"
+  color: "1d76db"
+  description: "Improvements or additions to documentation."
+
+- name: "type:chore"
+  color: "e4e669"
+  description: "Maintenance task (dependencies, refactor, housekeeping)."
+
+- name: "type:performance"
+  color: "006b75"
+  description: "Performance improvement (build, runtime, or Core Web Vitals)."
+
+- name: "type:accessibility"
+  color: "5319e7"
+  description: "Accessibility fix or improvement."
+
+- name: "type:security"
+  color: "b60205"
+  description: "Security fix or hardening."
+
+# ── Website area ─────────────────────────────────────────────────────────────
+- name: "area:landing"
+  color: "c5def5"
+  description: "Home page — hero, footer, products section, CTA."
+
+- name: "area:community"
+  color: "bfd4f2"
+  description: "Community page — sessions, repos, blog notes, roadmap, tools."
+
+- name: "area:about"
+  color: "d4c5f9"
+  description: "About page — vision, mission, contributors, speakers, partners."
+
+- name: "area:products"
+  color: "fef2c0"
+  description: "Products page."
+
+- name: "area:legal"
+  color: "f9d0c4"
+  description: "Legal pages — privacy policy, terms of service, code of conduct."
+
+- name: "area:api"
+  color: "c2e0c6"
+  description: "API routes — avatar, calendar, posts feed."
+
+- name: "area:infrastructure"
+  color: "e4e669"
+  description: "CI/CD, deployment, configuration, and dependencies."
+
+# ── Status ───────────────────────────────────────────────────────────────────
+- name: "status:triage"
+  color: "ededed"
+  description: "Needs initial review and classification."
+
+- name: "status:needs-info"
+  color: "fef2c0"
+  description: "Waiting for more information from the author."
+
+- name: "status:in-progress"
+  color: "e4e669"
+  description: "Actively being worked on."
+
+- name: "status:blocked"
+  color: "b60205"
+  description: "Blocked by another issue or external dependency."
+
+- name: "status:ready"
+  color: "0e8a16"
+  description: "Ready to be worked on or merged."
+
+- name: "status:complete"
+  color: "0e8a16"
+  description: "Work is done — shipped or resolved."
+
+# ── Priority ─────────────────────────────────────────────────────────────────
+- name: "priority:critical"
+  color: "b60205"
+  description: "Must be addressed immediately."
+
+- name: "priority:high"
+  color: "d93f0b"
+  description: "High priority — address in the current cycle."
+
+- name: "priority:medium"
+  color: "fbca04"
+  description: "Medium priority — address in the next cycle."
+
+- name: "priority:low"
+  color: "c2e0c6"
+  description: "Low priority — nice to have."
+
+# ── Housekeeping ─────────────────────────────────────────────────────────────
+- name: "good first issue"
+  color: "7057ff"
+  description: "Good for newcomers and first-time contributors."
+
+- name: "help wanted"
+  color: "008672"
+  description: "Extra attention or community help is needed."
+
+- name: "duplicate"
+  color: "cfd3d7"
+  description: "This issue or PR already exists."
+
+- name: "wontfix"
+  color: "ffffff"
+  description: "This will not be worked on."
+
+- name: "invalid"
+  color: "e4e669"
+  description: "This does not seem right."

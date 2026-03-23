@@ -1,0 +1,225 @@
+name: Project Setup
+
+# One-time (or idempotent) setup for the EdgeOps Labs Website GitHub Project.
+# Creates all custom fields (Status, Priority, Type, Area) and the standard
+# board views if they do not already exist.
+#
+# Run manually from:
+#   Actions -> Project Setup -> Run workflow
+#
+# Requirements:
+#   PROJECT_TOKEN secret — classic PAT or fine-grained PAT with "project" scope.
+#   PROJECT_NUMBER variable — the numeric ID of the GitHub Project to configure.
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_fields:
+        description: "Skip field provisioning (only create views)"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+      skip_views:
+        description: "Skip view provisioning (only create fields)"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+env:
+  PROJECT_NUMBER: ${{ vars.PROJECT_NUMBER || '1' }}
+  ORG: "EdgeOpslabs"
+
+jobs:
+  setup:
+    name: Provision project fields and views
+    runs-on: ubuntu-latest
+    permissions: {}
+    steps:
+      - name: Configure project
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.PROJECT_TOKEN }}
+          script: |
+            const PROJECT_NUMBER = parseInt(process.env.PROJECT_NUMBER, 10);
+            const ORG            = process.env.ORG;
+            const SKIP_FIELDS    = '${{ inputs.skip_fields }}' === 'true';
+            const SKIP_VIEWS     = '${{ inputs.skip_views }}'  === 'true';
+
+            const gql = (query, vars) => github.graphql(query, vars);
+
+            // ── Fetch project ──────────────────────────────────────────────
+            const projectData = await gql(`
+              query GetProject($org: String!, $number: Int!) {
+                organization(login: $org) {
+                  projectV2(number: $number) {
+                    id
+                    title
+                    fields(first: 50) {
+                      nodes {
+                        ... on ProjectV2Field {
+                          id name dataType
+                        }
+                        ... on ProjectV2SingleSelectField {
+                          id name
+                          options { id name color }
+                        }
+                        ... on ProjectV2IterationField {
+                          id name
+                        }
+                      }
+                    }
+                    views(first: 20) {
+                      nodes { id name layout }
+                    }
+                  }
+                }
+              }
+            `, { org: ORG, number: PROJECT_NUMBER });
+
+            const project   = projectData.organization.projectV2;
+            const projectId = project.id;
+            core.info(`Project: "${project.title}" (${projectId})`);
+
+            const existingFields = project.fields.nodes;
+            const existingViews  = project.views.nodes;
+
+            const fieldByName = (name) =>
+              existingFields.find(f => f.name?.toLowerCase() === name.toLowerCase());
+            const viewByName  = (name) =>
+              existingViews.find(v => v.name?.toLowerCase() === name.toLowerCase());
+
+            // ── Field definitions ─────────────────────────────────────────
+            const FIELDS = [
+              {
+                name: 'Status',
+                dataType: 'SINGLE_SELECT',
+                options: [
+                  { name: 'Triage',      color: 'GRAY'   },
+                  { name: 'Needs Info',  color: 'YELLOW' },
+                  { name: 'In Progress', color: 'YELLOW' },
+                  { name: 'Ready',       color: 'GREEN'  },
+                  { name: 'Blocked',     color: 'RED'    },
+                  { name: 'Complete',    color: 'GREEN'  },
+                ],
+              },
+              {
+                name: 'Priority',
+                dataType: 'SINGLE_SELECT',
+                options: [
+                  { name: 'Critical', color: 'RED'    },
+                  { name: 'High',     color: 'ORANGE' },
+                  { name: 'Medium',   color: 'YELLOW' },
+                  { name: 'Low',      color: 'BLUE'   },
+                ],
+              },
+              {
+                name: 'Type',
+                dataType: 'SINGLE_SELECT',
+                options: [
+                  { name: 'Bug',           color: 'RED'    },
+                  { name: 'Feature',       color: 'BLUE'   },
+                  { name: 'Enhancement',   color: 'GREEN'  },
+                  { name: 'Documentation', color: 'PURPLE' },
+                  { name: 'Chore',         color: 'GRAY'   },
+                  { name: 'Performance',   color: 'ORANGE' },
+                  { name: 'Accessibility', color: 'PURPLE' },
+                  { name: 'Security',      color: 'RED'    },
+                ],
+              },
+              {
+                name: 'Area',
+                dataType: 'SINGLE_SELECT',
+                options: [
+                  { name: 'Landing',        color: 'BLUE'   },
+                  { name: 'Community',      color: 'GREEN'  },
+                  { name: 'About',          color: 'PURPLE' },
+                  { name: 'Products',       color: 'YELLOW' },
+                  { name: 'Legal',          color: 'ORANGE' },
+                  { name: 'API',            color: 'GRAY'   },
+                  { name: 'Infrastructure', color: 'GRAY'   },
+                ],
+              },
+            ];
+
+            // ── Create missing fields ──────────────────────────────────────
+            if (!SKIP_FIELDS) {
+              for (const fieldDef of FIELDS) {
+                if (fieldByName(fieldDef.name)) {
+                  core.info(`Field "${fieldDef.name}" already exists — skipping`);
+                  continue;
+                }
+                try {
+                  await gql(`
+                    mutation CreateField(
+                      $projectId: ID!
+                      $name: String!
+                      $dataType: ProjectV2CustomFieldType!
+                      $options: [ProjectV2SingleSelectFieldOptionInput!]
+                    ) {
+                      createProjectV2Field(input: {
+                        projectId: $projectId
+                        dataType:  $dataType
+                        name:      $name
+                        singleSelectOptions: $options
+                      }) {
+                        projectV2Field {
+                          ... on ProjectV2SingleSelectField { id name }
+                          ... on ProjectV2Field             { id name }
+                        }
+                      }
+                    }
+                  `, {
+                    projectId: projectId,
+                    name:      fieldDef.name,
+                    dataType:  fieldDef.dataType,
+                    options:   fieldDef.options ?? [],
+                  });
+                  core.info(`Created field "${fieldDef.name}"`);
+                } catch (err) {
+                  core.warning(`Could not create field "${fieldDef.name}": ${err.message}`);
+                }
+              }
+            }
+
+            // ── View definitions ──────────────────────────────────────────
+            const VIEWS = [
+              { name: 'All Items',           layout: 'TABLE_LAYOUT' },
+              { name: 'Board by Status',     layout: 'BOARD_LAYOUT' },
+              { name: 'Board by Area',       layout: 'BOARD_LAYOUT' },
+              { name: 'Infrastructure',      layout: 'TABLE_LAYOUT' },
+              { name: 'By Priority',         layout: 'TABLE_LAYOUT' },
+            ];
+
+            // ── Create missing views ───────────────────────────────────────
+            if (!SKIP_VIEWS) {
+              for (const viewDef of VIEWS) {
+                if (viewByName(viewDef.name)) {
+                  core.info(`View "${viewDef.name}" already exists — skipping`);
+                  continue;
+                }
+                try {
+                  await gql(`
+                    mutation CreateView(
+                      $projectId: ID!
+                      $name: String!
+                      $layout: ProjectV2ViewLayout!
+                    ) {
+                      createProjectV2View(input: {
+                        projectId: $projectId
+                        name:      $name
+                        layout:    $layout
+                      }) {
+                        projectV2View { id name layout }
+                      }
+                    }
+                  `, { projectId, name: viewDef.name, layout: viewDef.layout });
+                  core.info(`Created view "${viewDef.name}" (${viewDef.layout})`);
+                } catch (err) {
+                  core.warning(`Could not create view "${viewDef.name}": ${err.message}`);
+                }
+              }
+            }
+
+            core.info('Project setup complete.');
