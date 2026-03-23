@@ -5,7 +5,10 @@
 ![Deployment Status](https://img.shields.io/badge/deployment-operational-00C853?style=for-the-badge&logo=vercel)
 ![Version](https://img.shields.io/badge/release-v1.0.0-05CAFF?style=for-the-badge)
 ![License](https://img.shields.io/badge/license-MIT-000000?style=for-the-badge)
-![Tech](https://img.shields.io/badge/built_with-Next.js_15-000000?style=for-the-badge&logo=next.js)
+![Tech](https://img.shields.io/badge/built_with-Next.js_16-000000?style=for-the-badge&logo=next.js)
+![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-00D1FF?style=for-the-badge&logo=github)
+![Open Source](https://img.shields.io/badge/open_source-yes-05CAFF?style=for-the-badge)
+![Maintained](https://img.shields.io/badge/maintained-yes-00C853?style=for-the-badge)
 
 **Architecting the Operating System for the Intelligent Edge.**
 
