@@ -3,9 +3,18 @@
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
-import speakers from "@/config/guestSpeakers.json";
+import allSpeakers from "@/config/guestSpeakers.json";
+
+// Only show speakers that have been marked active.
+// To activate a speaker, set "active": true in guestSpeakers.json
+const speakers = (allSpeakers as Array<typeof allSpeakers[0] & { active?: boolean }>).filter(
+  (s) => s.active === true
+);
 
 export function GuestSpeakerSpotlight() {
+  // Hide the entire section when there are no active speakers
+  if (speakers.length === 0) return null;
+
   return (
     <section className="py-16 md:py-24 border-t border-brand-primary/10">
       <div className="text-center mb-16">
