@@ -8,11 +8,8 @@ import { DiscordIcon } from "@/components/icons";
 
 import { MemberMarketing } from "@/components/community/MemberMarketing";
 import { BlogNotesSection } from "@/components/community/BlogNotesSection";
-import { RoadmapSection } from "@/components/community/RoadmapSection";
-import { CommitHistory } from "@/components/community/CommitHistory";
 import { UpcomingSessions } from "@/components/community/UpcomingSessions";
 import { FeaturedRepos } from "@/components/community/FeaturedRepos";
-import { FreeTools } from "@/components/community/FreeTools";
 
 const channels = [
     {
@@ -42,7 +39,7 @@ const channels = [
         title: "X Updates",
         description: "Follow product announcements, technical highlights, and community updates.",
         action: "Follow on X",
-        url: "https://x.com/iemafzalhassan",
+        url: "https://x.com/EdgeopsL46234",
         icon: Twitter,
         color: "text-sky-600 dark:text-sky-400",
         border: "border-sky-500/10 dark:border-sky-500/20",
@@ -53,7 +50,7 @@ const channels = [
         title: "LinkedIn Network",
         description: "Connect with professionals, explore career opportunities, and read company news.",
         action: "Connect on LinkedIn",
-        url: "https://www.linkedin.com/in/iemafzalhassan/",
+        url: "https://www.linkedin.com/company/edgeops-labs/",
         icon: Linkedin,
         color: "text-[#0A66C2]",
         border: "border-[#0A66C2]/10 dark:border-[#0A66C2]/20",
@@ -68,20 +65,17 @@ export default function CommunityPage() {
             <div className="absolute inset-0 -z-20 opacity-20 dark:opacity-30">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-primary/20 rounded-full blur-[120px]" />
             </div>
-            {/* Hex Grid Overlay */}
-            {/* Hex Grid Overlay - Handled Globally in Layout */}
 
             <div className="container mx-auto px-4">
-
                 {/* --- CONTENT SECTIONS --- */}
                 <div className="max-w-6xl mx-auto">
                     <MemberMarketing />
                     <BlogNotesSection />
-                    <RoadmapSection />
-                    <CommitHistory />
+                    {/* <RoadmapSection /> */}
+                    {/* <CommitHistory /> */}
                     <UpcomingSessions />
                     <FeaturedRepos />
-                    <FreeTools />
+                    {/* <FreeTools /> */}
                 </div>
 
                 {/* --- STATS SECTION --- */}
@@ -94,11 +88,11 @@ export default function CommunityPage() {
                     <div className="inline-block border border-brand-primary/20 bg-white/80 dark:bg-black/50 backdrop-blur-md rounded-lg p-8 shadow-xl">
                         <div className="grid grid-cols-3 gap-12 text-center">
                             <div>
-                                <div className="text-4xl font-bold text-brand-primary font-mono mb-2">512</div>
+                                <div className="text-4xl font-bold text-brand-primary font-mono mb-2">4</div>
                                 <div className="text-xs uppercase tracking-widest text-brand-text/50">Active Nodes</div>
                             </div>
                             <div>
-                                <div className="text-4xl font-bold text-brand-primary font-mono mb-2">10k+</div>
+                                <div className="text-4xl font-bold text-brand-primary font-mono mb-2">157</div>
                                 <div className="text-xs uppercase tracking-widest text-brand-text/50">Commits</div>
                             </div>
                             <div>
@@ -113,7 +107,6 @@ export default function CommunityPage() {
                 </motion.div>
 
                 {/* --- CALL TO ACTION (Hero & Channels) --- */}
-                {/* Moved entirely beneath the Global Presence Stats per user request */}
                 <div className="mb-24 text-center max-w-4xl mx-auto pt-16 border-t border-brand-primary/10">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
@@ -156,7 +149,6 @@ export default function CommunityPage() {
                             transition={{ delay: i * 0.1 }}
                             className="relative group rounded-2xl overflow-hidden hover:-translate-y-1 hover:shadow-2xl transition-transform"
                         >
-                            {/* Moving Light Edge Effect */}
                             <div className="absolute inset-0 z-0">
                                 <motion.div
                                     animate={{ rotate: 360 }}
@@ -190,10 +182,10 @@ export default function CommunityPage() {
                                     {/* "People Stack" for Discord - Social Proof */}
                                     {channel.id === 'discord' && (
                                         <div className="flex items-center justify-center -space-x-3 mb-6">
-                                            {[1, 2, 3, 4, 5].map((i) => (
-                                                <div key={i} className="relative w-8 h-8 rounded-full border-2 border-card overflow-hidden ring-2 ring-background">
+                                            {[1, 2, 3, 4, 5].map((idx) => (
+                                                <div key={idx} className="relative w-8 h-8 rounded-full border-2 border-card overflow-hidden ring-2 ring-background">
                                                     <Image
-                                                        src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 40}&backgroundColor=b6e3f4`}
+                                                        src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${idx + 40}&backgroundColor=b6e3f4`}
                                                         alt="Community member"
                                                         fill
                                                         sizes="32px"
@@ -202,9 +194,6 @@ export default function CommunityPage() {
                                                     />
                                                 </div>
                                             ))}
-                                            <div className="relative flex items-center justify-center w-8 h-8 rounded-full border-2 border-card bg-brand-primary/20 text-[10px] font-bold text-brand-primary ring-2 ring-background">
-                                                +5k
-                                            </div>
                                         </div>
                                     )}
 
